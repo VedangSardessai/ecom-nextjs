@@ -18,10 +18,11 @@ export default function ResetPassword(): JSX.Element {
   const [token, setToken] = useState("");
   const [verified, setVerified] = useState(false);
   const [error, setError] = useState(false);
+  const [emailError, setEmailError] = useState(true);
   const [passwordError, setPasswordError] = useState("");
   const [validPassword, setValidPassword] = useState(true);
 
-  const [userEmail, setUserEmail] = useState("Loading...");
+  const [userEmail, setUserEmail] = useState("");
   const router = useRouter();
 
   const getEmail = async () => {
@@ -29,8 +30,11 @@ export default function ResetPassword(): JSX.Element {
       const response = await axios.post("/api/users/resetpassword/getemail", {
         token,
       });
+      setEmailError(false);
       setUserEmail(response.data.user.email);
     } catch (error: any) {
+      setEmailError(true);
+      setIsLoading(false);
       console.log(error.message, "Error in resetting password");
       setError(true);
     }
@@ -53,7 +57,7 @@ export default function ResetPassword(): JSX.Element {
   useEffect(() => {
     if (token.length > 0) getEmail();
     console.log(token);
-  }, [token,getEmail]);
+  }, [token, getEmail]);
 
   const validatePassword = () => {
     const passwordRegex = /^(?=.*[A-Za-z0-9])(?=.*[^A-Za-z0-9]).{8,}$/;
@@ -76,7 +80,6 @@ export default function ResetPassword(): JSX.Element {
     validatePassword();
   }, [newPassword]);
 
-  
   useEffect(() => {
     if (newPassword) setButtonDisabled(false);
 
@@ -89,7 +92,6 @@ export default function ResetPassword(): JSX.Element {
 
     setToken(urlToken || "");
   }, []);
-
 
   return (
     <>
@@ -117,7 +119,14 @@ export default function ResetPassword(): JSX.Element {
 
         <hr />
         <p className="text-xl mb-10">
-          Changing Password for : <span className="lowercase">{userEmail}</span>
+          Changing Password for :{" "}
+          <span className={emailError ? "text-red-500" : "text-blue-500"}>
+            {emailError ? (
+              "Reset Email Expired. Please try to reset password again"
+            ) : (
+              <span className="lowercase">{userEmail}</span>
+            )}
+          </span>
         </p>
         <hr />
         <label htmlFor="password">Enter new password</label>
@@ -129,7 +138,7 @@ export default function ResetPassword(): JSX.Element {
           value={newPassword}
           onChange={(e) => setNewPassword(e.target.value)}
         />
-        <p className="mb-2 text-red-500">{passwordError}</p>
+        <p className="mb-2 text-blue-400 font-bold">{passwordError}</p>
 
         <button
           disabled={buttonDisabled}
