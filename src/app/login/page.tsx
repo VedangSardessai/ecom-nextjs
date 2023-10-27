@@ -11,13 +11,14 @@ export default function Login(): JSX.Element {
     password: "",
   });
 
-  const successToast = () => toast("User has signed up successfully!!!");
-  const failureToast = () => toast("Error signing up. Please try again ");
+  const successToast = () => toast("User has logged in successfully!!!");
+  const failureToast = (error: any) => toast(error);
+  const [errorMessage, setErrorMessage] = useState("");
 
   const [buttonDisabled, setButtonDisabled] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
-  const [success, setSuccess] = useState(false);
-
+  const [success, setSuccess] = useState(true);
+  const [data, setData] = useState("");
   const router = useRouter();
 
   useEffect(() => {
@@ -25,18 +26,36 @@ export default function Login(): JSX.Element {
     else setButtonDisabled(true);
   }, [user]);
 
+  const getCurrentUserDetails = async () => {
+    try {
+      const response = await axios.get("/api/users/user");
+      console.log(response.data);
+      setData(response.data.data);
+      return response.data.data; // Return the username
+    } catch (error) {
+      console.error("Error fetching user details:", error);
+      return null; // Handle the error gracefully
+    }
+  };
+
   const onLogin = async () => {
     try {
       setIsLoading(true);
-      setSuccess(true);
       const response = await axios.post("/api/users/login", user);
-      console.log("User logged in");
+      const data = await getCurrentUserDetails();
 
-      successToast();
-
-      setTimeout(() => router.push("/profile"), 3000);
+      if (data) {
+        setSuccess(true);
+        successToast();
+        console.log(data);
+        router.push(`/profile/${data._id}`);
+      }
     } catch (error: any) {
-      console.log("error login ", error.message);
+      setSuccess(false);
+      if (error.response) failureToast(error.response.data.error);
+      else failureToast("Something went wrong, please try again");
+
+      console.error("Error login:", errorMessage);
     }
   };
   return (
@@ -56,7 +75,7 @@ export default function Login(): JSX.Element {
           },
         }}
       />
-      <div className="flex flex-col items-center justify-center min-h-screen py-2">
+      <div className=" capitalize flex flex-col items-center justify-center min-h-screen py-2">
         <h1>Login</h1>
         <hr />
 
@@ -65,7 +84,7 @@ export default function Login(): JSX.Element {
           className="p-2 border border-gray-300 rounded-lg mb-4 focus:outline-none focus:border-gray-600"
           type="text"
           id="email"
-          placeholder="email"
+          placeholder="Email"
           value={user.email}
           onChange={(e) => setUser({ ...user, email: e.target.value })}
         />
@@ -75,17 +94,19 @@ export default function Login(): JSX.Element {
           className="p-2 border border-gray-300 rounded-lg mb-4 focus:outline-none focus:border-gray-600"
           type="password"
           id="password"
-          placeholder="password"
+          placeholder="Password"
           value={user.password}
           onChange={(e) => setUser({ ...user, password: e.target.value })}
         />
 
         <button
+          disabled={buttonDisabled}
           onClick={onLogin}
-          className="p-2 border border-gray-300 rounded-lg mb-4 focus:outline-none focus:border-gray-600"
+          className=" capitalize p-2 border border-gray-300 rounded-lg mb-4 focus:outline-none focus:border-gray-600"
         >
-          Login Here
+          {buttonDisabled ? "Please fill details" : "Login Here"}
         </button>
+        <Link href="/resetemail">Forgot Password?</Link>
         <Link href="/signup">Visit Sign Up Page</Link>
       </div>
     </>

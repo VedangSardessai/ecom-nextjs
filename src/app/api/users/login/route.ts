@@ -30,35 +30,41 @@ export async function POST(request: NextRequest) {
 
         if (!isPasswordValid) {
             return NextResponse.json({
-                error: "Invalid password"
+                error: "Entered incorrect password"
             },
-                { status: 400 }
+                { status: 401 }
             )
         }
+        if (!user.isVerified)
+            return NextResponse.json({
+                error: "User Email Is Not Verified"
+            },
+                { status: 554 }
+            )
+        else {
+            // Create token data
+            const token = jwt.sign({
+                id: user._id,
+                email: user.email,
+                username: user.username
+            }, process.env.TOKEN_SECRET!, {
+                expiresIn: "1d"
+            })
 
-        // Create token data
-        const token = jwt.sign({
-            id: user._id,
-            email: user.email,
-            username: user.username
-        }, process.env.TOKEN_SECRET!, {
-            expiresIn: "1d"
-        })
-
-        const response = NextResponse.json({
-            message: "Login successful",
-            success: true,
-        })
+            const response = NextResponse.json({
+                message: "Login successful",
+                success: true,
+            })
 
 
-        response.cookies.set(
-            "token", token, {
-            httpOnly: true,
+            response.cookies.set(
+                "token", token, {
+                httpOnly: true,
+            }
+
+            )
+            return response
         }
-
-        )
-
-        return response
 
     } catch (error: any) {
         return NextResponse.json({ error: error.message }, { status: 500 })
