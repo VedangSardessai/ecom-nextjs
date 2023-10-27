@@ -52,7 +52,7 @@ export default function SignUp(): JSX.Element {
 
     if (user.password.length < 8 || user.username.length < 3)
       setButtonDisabled(true);
-  });
+  },[]);
 
   return (
     <>

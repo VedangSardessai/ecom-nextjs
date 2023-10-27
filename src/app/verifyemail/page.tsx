@@ -25,12 +25,12 @@ export default function VerifyEmail() {
     console.log(token);
 
     setToken(urlToken || "");
-  }, []);
+  }, [token]);
 
   useEffect(() => {
     if (token.length > 0) verifyUserEmail();
     console.log(token);
-  }, [token]);
+  }, [token,verifyUserEmail]);
 
   return (
     <>

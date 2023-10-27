@@ -36,19 +36,6 @@ export default function ResetPassword(): JSX.Element {
     }
   };
 
-  useEffect(() => {
-    if (newPassword) setButtonDisabled(false);
-
-    if (newPassword.length < 8) setButtonDisabled(true);
-  });
-
-  useEffect(() => {
-    const urlToken = window.location.search.split("=")[1];
-    console.log(urlToken);
-
-    setToken(urlToken || "");
-  }, []);
-
   const resetPassword = async () => {
     try {
       const response = await axios.post("/api/users/resetpassword", {
@@ -66,7 +53,7 @@ export default function ResetPassword(): JSX.Element {
   useEffect(() => {
     if (token.length > 0) getEmail();
     console.log(token);
-  }, [token]);
+  }, [token,getEmail]);
 
   const validatePassword = () => {
     const passwordRegex = /^(?=.*[A-Za-z0-9])(?=.*[^A-Za-z0-9]).{8,}$/;
@@ -88,6 +75,21 @@ export default function ResetPassword(): JSX.Element {
   useEffect(() => {
     validatePassword();
   }, [newPassword]);
+
+  
+  useEffect(() => {
+    if (newPassword) setButtonDisabled(false);
+
+    if (newPassword.length < 8) setButtonDisabled(true);
+  }, [newPassword, validatePassword]);
+
+  useEffect(() => {
+    const urlToken = window.location.search.split("=")[1];
+    console.log(urlToken);
+
+    setToken(urlToken || "");
+  }, []);
+
 
   return (
     <>
