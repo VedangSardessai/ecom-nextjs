@@ -36,14 +36,14 @@ export default function SignUp(): JSX.Element {
         password: "",
         username: "",
       });
-      setIsLoading(false);
 
       setTimeout(() => router.push("/login"), 1000);
     } catch (error: any) {
       console.log("signup failed", error.message);
-      setIsLoading(false);
       setSuccess(false);
       failureToast();
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -72,7 +72,7 @@ export default function SignUp(): JSX.Element {
         }}
       />
 
-      <div className="flex flex-col items-center justify-center min-h-screen py-2">
+      <div className="capitalize flex flex-col items-center justify-center min-h-screen py-2">
         <h1> {isLoading ? "Loading..." : "Sign Up "} </h1>
         <hr />
         <label htmlFor="username">username</label>
@@ -80,7 +80,7 @@ export default function SignUp(): JSX.Element {
           className="p-2 border border-gray-300 rounded-lg mb-4 focus:outline-none focus:border-gray-600"
           type="text"
           id="username"
-          placeholder="username"
+          placeholder="Username"
           value={user.username}
           onChange={(e) => setUser({ ...user, username: e.target.value })}
         />
@@ -90,7 +90,7 @@ export default function SignUp(): JSX.Element {
           className="p-2 border border-gray-300 rounded-lg mb-4 focus:outline-none focus:border-gray-600"
           type="text"
           id="email"
-          placeholder="email"
+          placeholder="Email"
           value={user.email}
           onChange={(e) => setUser({ ...user, email: e.target.value })}
         />
@@ -100,7 +100,7 @@ export default function SignUp(): JSX.Element {
           className="p-2 border border-gray-300 rounded-lg mb-4 focus:outline-none focus:border-gray-600"
           type="password"
           id="password"
-          placeholder="password"
+          placeholder="Password"
           value={user.password}
           onChange={(e) => setUser({ ...user, password: e.target.value })}
         />
@@ -108,7 +108,7 @@ export default function SignUp(): JSX.Element {
         <button
           disabled={buttonDisabled}
           onClick={onSignup}
-          className="p-2 border border-gray-300 rounded-lg mb-4 focus:outline-none focus:border-gray-600"
+          className=" capitalize p-2 border border-gray-300 rounded-lg mb-4 focus:outline-none focus:border-gray-600"
         >
           {buttonDisabled ? "Please fill details" : "Sign Up"}
         </button>
