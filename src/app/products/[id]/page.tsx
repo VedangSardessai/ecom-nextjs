@@ -36,19 +36,19 @@ export default function ProductCategory(): JSX.Element {
 
   const [products, setProducts] = useState([]);
 
-  const fetchProducts = async () => {
-    try {
-      const data = await getProductsBasedOnCategory(category);
-      setProducts(data);
-
-      if (data.length == 0) {
-        router.push("/products/categorynotfound");
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  };
   useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const data = await getProductsBasedOnCategory(category);
+        setProducts(data);
+
+        if (data.length == 0) {
+          router.push("/products/categorynotfound");
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    };
     fetchProducts();
   }, []);
   return (
