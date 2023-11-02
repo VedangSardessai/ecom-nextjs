@@ -1,18 +1,29 @@
 "use client";
 import React from "react";
-
+import { useRouter } from "next/navigation";
 export default function DisplayProducts({ products }: any) {
+  const router = useRouter()
   return (
     <div className="m-5 grid grid-cols-2 gap-x-6 gap-y-10 sm:grid-cols-3 lg:grid-cols-4 xl:gap-x-8">
       {products.map((product: any) => (
-        <div key={product.id} className="group relative">
-          <div className="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none group-hover:opacity-75 lg:h-80">
+        <div
+          onClick={() => router.push('/products/buynow/'+product.id)}
+          key={product.id}
+          className="group relative"
+        >
+          <div
+            className="aspect-h-1 
+          aspect-w-1 w-full overflow-hidden 
+          rounded-md bg-gray-200 lg:aspect-none 
+          group-hover:opacity-75"
+          >
             <img
-              src={product.images[0]}
+              src={product.images[1]}
               alt={product.name}
-              className="object-cover object-center lg:h-full lg:w-full"
+              className="object-cover object-center h-80 w-80 lg:h-80 lg:w-80"
             />
           </div>
+
           <div className="mt-4 flex justify-between">
             <div>
               <h3 className="text-sm text-gray-700">
@@ -21,10 +32,9 @@ export default function DisplayProducts({ products }: any) {
                   {product.title}
                 </a>
               </h3>
-              {/* <p className="mt-1 text-sm text-gray-500">Black</p> */}
             </div>
+
             <p className="text-sm font-medium text-gray-900">
-              {" "}
               ₹{82 * product.price}
             </p>
           </div>
