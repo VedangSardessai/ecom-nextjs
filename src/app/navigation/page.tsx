@@ -2,6 +2,7 @@
 import Link from "next/link";
 import React from "react";
 import { useState, useEffect } from "react";
+import OverlayComponent from "../overlay/page";
 
 export default function NavigationComponent() {
   const [isWomenNavOpen, setIsWomenNavOpen] = useState(false);
@@ -27,11 +28,11 @@ export default function NavigationComponent() {
     <div className="bg-white">
       <div className="relative  lg:hidden" role="dialog" aria-modal="true">
         <div
-          className={`fixed bg-black bg-opacity-25 ${
+          className={`fixed bg-black bg-opacity-75 z-30 ${
             isNavOpen ? "inset-0" : "inset-none"
           }`}
         ></div>
-
+        {/* This is the mobile menu */}
         {isNavOpen && (
           <div className="fixed inset-0 z-30 flex">
             <div className="relative flex w-full max-w-xs flex-col overflow-y-auto bg-white pb-12 shadow-xl">
@@ -47,13 +48,13 @@ export default function NavigationComponent() {
                     className="h-6 w-6"
                     fill="none"
                     viewBox="0 0 24 24"
-                    stroke-width="1.5"
+                    strokeWidth="1.5"
                     stroke="currentColor"
                     aria-hidden="true"
                   >
                     <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
                       d="M6 18L18 6M6 6l12 12"
                     />
                   </svg>
@@ -108,12 +109,6 @@ export default function NavigationComponent() {
                   >
                     <div className="grid grid-cols-2 gap-x-4"></div>
                     <div>
-                      <p
-                        id="women-clothing-heading-mobile"
-                        className="font-medium text-gray-900"
-                      >
-                        Clothing
-                      </p>
                       <ul
                         role="list"
                         aria-labelledby="women-clothing-heading-mobile"
@@ -121,7 +116,10 @@ export default function NavigationComponent() {
                       >
                         <li className="flow-root">
                           <Link
-                            href="#"
+                            onClick={() => {
+                              setIsNavOpen(false);
+                            }}
+                            href="/products/tops"
                             className="-m-2 block p-2 text-gray-500"
                           >
                             Tops
@@ -129,7 +127,10 @@ export default function NavigationComponent() {
                         </li>
                         <li className="flow-root">
                           <Link
-                            href="#"
+                            onClick={() => {
+                              setIsNavOpen(false);
+                            }}
+                            href="/products/womens-dresses"
                             className="-m-2 block p-2 text-gray-500"
                           >
                             Dresses
@@ -137,77 +138,21 @@ export default function NavigationComponent() {
                         </li>
                         <li className="flow-root">
                           <Link
-                            href="#"
+                            onClick={() => {
+                              setIsNavOpen(false);
+                            }}
+                            href="/products/womens-shoes"
                             className="-m-2 block p-2 text-gray-500"
                           >
-                            Pants
+                            Shoes
                           </Link>
                         </li>
                         <li className="flow-root">
                           <Link
-                            href="#"
-                            className="-m-2 block p-2 text-gray-500"
-                          >
-                            Denim
-                          </Link>
-                        </li>
-                        <li className="flow-root">
-                          <Link
-                            href="#"
-                            className="-m-2 block p-2 text-gray-500"
-                          >
-                            Sweaters
-                          </Link>
-                        </li>
-                        <li className="flow-root">
-                          <Link
-                            href="#"
-                            className="-m-2 block p-2 text-gray-500"
-                          >
-                            T-Shirts
-                          </Link>
-                        </li>
-                        <li className="flow-root">
-                          <Link
-                            href="#"
-                            className="-m-2 block p-2 text-gray-500"
-                          >
-                            Jackets
-                          </Link>
-                        </li>
-                        <li className="flow-root">
-                          <Link
-                            href="#"
-                            className="-m-2 block p-2 text-gray-500"
-                          >
-                            Activewear
-                          </Link>
-                        </li>
-                        <li className="flow-root">
-                          <Link
-                            href="#"
-                            className="-m-2 block p-2 text-gray-500"
-                          >
-                            Browse All
-                          </Link>
-                        </li>
-                      </ul>
-                    </div>
-                    <div>
-                      <p
-                        id="women-accessories-heading-mobile"
-                        className="font-medium text-gray-900"
-                      >
-                        Accessories
-                      </p>
-                      <ul
-                        role="list"
-                        aria-labelledby="women-accessories-heading-mobile"
-                        className="mt-6 flex flex-col space-y-6"
-                      >
-                        <li className="flow-root">
-                          <Link
-                            href="#"
+                            onClick={() => {
+                              setIsNavOpen(false);
+                            }}
+                            href="womens-watches"
                             className="-m-2 block p-2 text-gray-500"
                           >
                             Watches
@@ -215,15 +160,10 @@ export default function NavigationComponent() {
                         </li>
                         <li className="flow-root">
                           <Link
-                            href="#"
-                            className="-m-2 block p-2 text-gray-500"
-                          >
-                            Wallets
-                          </Link>
-                        </li>
-                        <li className="flow-root">
-                          <Link
-                            href="#"
+                            onClick={() => {
+                              setIsNavOpen(false);
+                            }}
+                            href="/products/womens-bags"
                             className="-m-2 block p-2 text-gray-500"
                           >
                             Bags
@@ -231,26 +171,13 @@ export default function NavigationComponent() {
                         </li>
                         <li className="flow-root">
                           <Link
-                            href="#"
+                            onClick={() => {
+                              setIsNavOpen(false);
+                            }}
+                            href="/products/womens-jewellery"
                             className="-m-2 block p-2 text-gray-500"
                           >
-                            Sunglasses
-                          </Link>
-                        </li>
-                        <li className="flow-root">
-                          <Link
-                            href="#"
-                            className="-m-2 block p-2 text-gray-500"
-                          >
-                            Hats
-                          </Link>
-                        </li>
-                        <li className="flow-root">
-                          <Link
-                            href="#"
-                            className="-m-2 block p-2 text-gray-500"
-                          >
-                            Belts
+                            Jewellery
                           </Link>
                         </li>
                       </ul>
@@ -267,12 +194,6 @@ export default function NavigationComponent() {
                     tabIndex={0}
                   >
                     <div>
-                      <p
-                        id="men-clothing-heading-mobile"
-                        className="font-medium text-gray-900"
-                      >
-                        Clothing
-                      </p>
                       <ul
                         role="list"
                         aria-labelledby="men-clothing-heading-mobile"
@@ -280,77 +201,32 @@ export default function NavigationComponent() {
                       >
                         <li className="flow-root">
                           <Link
-                            href="#"
+                            onClick={() => {
+                              setIsNavOpen(false);
+                            }}
+                            href="/products/mens-shirts"
                             className="-m-2 block p-2 text-gray-500"
                           >
-                            Tops
+                            Shirts
                           </Link>
                         </li>
                         <li className="flow-root">
                           <Link
-                            href="#"
+                            onClick={() => {
+                              setIsNavOpen(false);
+                            }}
+                            href="/products/mens-shoes"
                             className="-m-2 block p-2 text-gray-500"
                           >
-                            Pants
+                            Shoes
                           </Link>
                         </li>
                         <li className="flow-root">
                           <Link
-                            href="#"
-                            className="-m-2 block p-2 text-gray-500"
-                          >
-                            Sweaters
-                          </Link>
-                        </li>
-                        <li className="flow-root">
-                          <Link
-                            href="#"
-                            className="-m-2 block p-2 text-gray-500"
-                          >
-                            T-Shirts
-                          </Link>
-                        </li>
-                        <li className="flow-root">
-                          <Link
-                            href="#"
-                            className="-m-2 block p-2 text-gray-500"
-                          >
-                            Jackets
-                          </Link>
-                        </li>
-                        <li className="flow-root">
-                          <Link
-                            href="#"
-                            className="-m-2 block p-2 text-gray-500"
-                          >
-                            Activewear
-                          </Link>
-                        </li>
-                        <li className="flow-root">
-                          <Link
-                            href="#"
-                            className="-m-2 block p-2 text-gray-500"
-                          >
-                            Browse All
-                          </Link>
-                        </li>
-                      </ul>
-                    </div>
-                    <div>
-                      <p
-                        id="men-accessories-heading-mobile"
-                        className="font-medium text-gray-900"
-                      >
-                        Accessories
-                      </p>
-                      <ul
-                        role="list"
-                        aria-labelledby="men-accessories-heading-mobile"
-                        className="mt-6 flex flex-col space-y-6"
-                      >
-                        <li className="flow-root">
-                          <Link
-                            href="#"
+                            onClick={() => {
+                              setIsNavOpen(false);
+                            }}
+                            href="/products/mens-watches"
                             className="-m-2 block p-2 text-gray-500"
                           >
                             Watches
@@ -358,42 +234,13 @@ export default function NavigationComponent() {
                         </li>
                         <li className="flow-root">
                           <Link
-                            href="#"
-                            className="-m-2 block p-2 text-gray-500"
-                          >
-                            Wallets
-                          </Link>
-                        </li>
-                        <li className="flow-root">
-                          <Link
-                            href="#"
-                            className="-m-2 block p-2 text-gray-500"
-                          >
-                            Bags
-                          </Link>
-                        </li>
-                        <li className="flow-root">
-                          <Link
-                            href="#"
+                            onClick={() => {
+                              setIsNavOpen(false);
+                            }}
+                            href="/products/sunglasses"
                             className="-m-2 block p-2 text-gray-500"
                           >
                             Sunglasses
-                          </Link>
-                        </li>
-                        <li className="flow-root">
-                          <Link
-                            href="#"
-                            className="-m-2 block p-2 text-gray-500"
-                          >
-                            Hats
-                          </Link>
-                        </li>
-                        <li className="flow-root">
-                          <Link
-                            href="#"
-                            className="-m-2 block p-2 text-gray-500"
-                          >
-                            Belts
                           </Link>
                         </li>
                       </ul>
@@ -405,6 +252,9 @@ export default function NavigationComponent() {
               <div className="space-y-6 border-t border-gray-200 px-4 py-6">
                 <div className="flow-root">
                   <Link
+                    onClick={() => {
+                      setIsNavOpen(false);
+                    }}
                     href="/"
                     className="-m-2 block p-2 font-medium text-gray-900"
                   >
@@ -413,6 +263,9 @@ export default function NavigationComponent() {
                 </div>
                 <div className="flow-root">
                   <Link
+                    onClick={() => {
+                      setIsNavOpen(false);
+                    }}
                     href="/login"
                     className="-m-2 block p-2 font-medium text-gray-900"
                   >
@@ -421,6 +274,9 @@ export default function NavigationComponent() {
                 </div>
                 <div className="flow-root">
                   <Link
+                    onClick={() => {
+                      setIsNavOpen(false);
+                    }}
                     href="/signup"
                     className="-m-2 block p-2 font-medium text-gray-900"
                   >
@@ -430,7 +286,13 @@ export default function NavigationComponent() {
               </div>
 
               <div className="border-t border-gray-200 px-4 py-6">
-                <Link href="#" className="-m-2 flex items-center p-2">
+                <Link
+                  onClick={() => {
+                    setIsNavOpen(false);
+                  }}
+                  href="#"
+                  className="-m-2 flex items-center p-2"
+                >
                   <img
                     src="https://duckduckgo.com/i/69626059.png"
                     alt=""
@@ -456,6 +318,7 @@ export default function NavigationComponent() {
           aria-label="Top"
           className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8"
         >
+          {/* This is the large screen menu */}
           <div className="border-b border-gray-200">
             <div className="flex h-16 items-center">
               <button
@@ -469,13 +332,13 @@ export default function NavigationComponent() {
                   className="h-6 w-6"
                   fill="none"
                   viewBox="0 0 24 24"
-                  stroke-width="1.5"
+                  strokeWidth="1.5"
                   stroke="currentColor"
                   aria-hidden="true"
                 >
                   <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
                     d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
                   />
                 </svg>
@@ -506,167 +369,102 @@ export default function NavigationComponent() {
                       ></div>
 
                       {isWomenNavOpen && (
-                        <div
-                          // className={`fixed bg-black bg-opacity-25 ${
-                          //     isNavOpen ? "inset-0" : "inset-none"
-                          //   }`}
-                          className="relative bg-white"
-                        >
-                          <div className="mx-auto max-w-7xl px-8">
-                            <div className="grid grid-cols-2 gap-x-8 gap-y-10 py-16">
-                              <div className="row-start-1 grid grid-cols-3 gap-x-8 gap-y-10 text-sm">
-                                <div>
-                                  <p
-                                    id="Clothing-heading"
-                                    className="font-medium text-gray-900"
-                                  >
-                                    Clothing
-                                  </p>
-                                  <ul
-                                    role="list"
-                                    aria-labelledby="Clothing-heading"
-                                    className="mt-6 space-y-6 sm:mt-4 sm:space-y-4"
-                                  >
-                                    <li className="flex">
-                                      <Link
-                                        href="#"
-                                        className="hover:text-gray-800"
-                                      >
-                                        Tops
-                                      </Link>
-                                    </li>
-                                    <li className="flex">
-                                      <Link
-                                        href="#"
-                                        className="hover:text-gray-800"
-                                      >
-                                        Dresses
-                                      </Link>
-                                    </li>
-                                    <li className="flex">
-                                      <Link
-                                        href="#"
-                                        className="hover:text-gray-800"
-                                      >
-                                        Pants
-                                      </Link>
-                                    </li>
-                                    <li className="flex">
-                                      <Link
-                                        href="#"
-                                        className="hover:text-gray-800"
-                                      >
-                                        Denim
-                                      </Link>
-                                    </li>
-                                    <li className="flex">
-                                      <Link
-                                        href="#"
-                                        className="hover:text-gray-800"
-                                      >
-                                        Sweaters
-                                      </Link>
-                                    </li>
-                                    <li className="flex">
-                                      <Link
-                                        href="#"
-                                        className="hover:text-gray-800"
-                                      >
-                                        T-Shirts
-                                      </Link>
-                                    </li>
-                                    <li className="flex">
-                                      <Link
-                                        href="#"
-                                        className="hover:text-gray-800"
-                                      >
-                                        Jackets
-                                      </Link>
-                                    </li>
-                                    <li className="flex">
-                                      <Link
-                                        href="#"
-                                        className="hover:text-gray-800"
-                                      >
-                                        Activewear
-                                      </Link>
-                                    </li>
-                                    <li className="flex">
-                                      <Link
-                                        href="#"
-                                        className="hover:text-gray-800"
-                                      >
-                                        Browse All
-                                      </Link>
-                                    </li>
-                                  </ul>
-                                </div>
-                                <div>
-                                  <p
-                                    id="Accessories-heading"
-                                    className="font-medium text-gray-900"
-                                  >
-                                    Accessories
-                                  </p>
-                                  <ul
-                                    role="list"
-                                    aria-labelledby="Accessories-heading"
-                                    className="mt-6 space-y-6 sm:mt-4 sm:space-y-4"
-                                  >
-                                    <li className="flex">
-                                      <Link
-                                        href="#"
-                                        className="hover:text-gray-800"
-                                      >
-                                        Watches
-                                      </Link>
-                                    </li>
-                                    <li className="flex">
-                                      <Link
-                                        href="#"
-                                        className="hover:text-gray-800"
-                                      >
-                                        Wallets
-                                      </Link>
-                                    </li>
-                                    <li className="flex">
-                                      <Link
-                                        href="#"
-                                        className="hover:text-gray-800"
-                                      >
-                                        Bags
-                                      </Link>
-                                    </li>
-                                    <li className="flex">
-                                      <Link
-                                        href="#"
-                                        className="hover:text-gray-800"
-                                      >
-                                        Sunglasses
-                                      </Link>
-                                    </li>
-                                    <li className="flex">
-                                      <Link
-                                        href="#"
-                                        className="hover:text-gray-800"
-                                      >
-                                        Hats
-                                      </Link>
-                                    </li>
-                                    <li className="flex">
-                                      <Link
-                                        href="#"
-                                        className="hover:text-gray-800"
-                                      >
-                                        Belts
-                                      </Link>
-                                    </li>
-                                  </ul>
+                        <>
+                          <div
+                            // className={`fixed bg-black bg-opacity-25 ${
+                            //     isNavOpen ? "inset-0" : "inset-none"
+                            //   }`}
+                            className="relative bg-white z-30"
+                          >
+                            <div className="mx-auto max-w-7xl px-8">
+                              <div className="grid grid-cols-2 gap-x-8 gap-y-10 py-16">
+                                <div className="row-start-1 grid grid-cols-3 gap-x-8 gap-y-10 text-sm">
+                                  <div>
+                                    <ul
+                                      role="list"
+                                      aria-labelledby="Clothing-heading"
+                                      className="mt-6 space-y-6 sm:mt-4 sm:space-y-4"
+                                    >
+                                      <li className="flex">
+                                        <Link
+                                          onClick={() => {
+                                            setIsMenNavOpen(false);
+                                            setIsWomenNavOpen(false);
+                                          }}
+                                          href="/products/tops"
+                                          className="hover:text-gray-800"
+                                        >
+                                          Tops
+                                        </Link>
+                                      </li>
+                                      <li className="flex">
+                                        <Link
+                                          onClick={() => {
+                                            setIsMenNavOpen(false);
+                                            setIsWomenNavOpen(false);
+                                          }}
+                                          href="/products/womens-dresses"
+                                          className="hover:text-gray-800"
+                                        >
+                                          Dresses
+                                        </Link>
+                                      </li>
+                                      <li className="flex">
+                                        <Link
+                                          onClick={() => {
+                                            setIsMenNavOpen(false);
+                                            setIsWomenNavOpen(false);
+                                          }}
+                                          href="/products/womens-shoes"
+                                          className="hover:text-gray-800"
+                                        >
+                                          Shoes
+                                        </Link>
+                                      </li>
+                                      <li className="flex">
+                                        <Link
+                                          onClick={() => {
+                                            setIsMenNavOpen(false);
+                                            setIsWomenNavOpen(false);
+                                          }}
+                                          href="/products/womens-watches"
+                                          className="hover:text-gray-800"
+                                        >
+                                          Watches
+                                        </Link>
+                                      </li>
+                                      <li className="flex">
+                                        <Link
+                                          onClick={() => {
+                                            setIsMenNavOpen(false);
+                                            setIsWomenNavOpen(false);
+                                          }}
+                                          href="/products/womens-bags"
+                                          className="hover:text-gray-800"
+                                        >
+                                          Bags
+                                        </Link>
+                                      </li>
+                                      <li className="flex">
+                                        <Link
+                                          onClick={() => {
+                                            setIsMenNavOpen(false);
+                                            setIsWomenNavOpen(false);
+                                          }}
+                                          href="/products/womens-jewellery"
+                                          className="hover:text-gray-800"
+                                        >
+                                          Jewellery
+                                        </Link>
+                                      </li>
+                                    </ul>
+                                  </div>
                                 </div>
                               </div>
                             </div>
                           </div>
-                        </div>
+                          <OverlayComponent />
+                        </>
                       )}
                     </div>
                   </div>
@@ -687,167 +485,86 @@ export default function NavigationComponent() {
                     </div>
 
                     <div className="absolute inset-x-0 top-full text-sm text-gray-500">
-                      <div
-                        className="absolute inset-0 top-1/2 bg-white shadow"
-                        aria-hidden="true"
-                      ></div>
-
                       {isMenNavOpen && (
-                        <div className="relative bg-white">
-                          <div className="mx-auto max-w-7xl px-8">
-                            <div className="grid grid-cols-2 gap-x-8 gap-y-10 py-16">
-                              <div className="row-start-1 grid grid-cols-3 gap-x-8 gap-y-10 text-sm">
-                                <div>
-                                  <p
-                                    id="Clothing-heading"
-                                    className="font-medium text-gray-900"
-                                  >
-                                    Clothing
-                                  </p>
-                                  <ul
-                                    role="list"
-                                    aria-labelledby="Clothing-heading"
-                                    className="mt-6 space-y-6 sm:mt-4 sm:space-y-4"
-                                  >
-                                    <li className="flex">
-                                      <Link
-                                        href="#"
-                                        className="hover:text-gray-800"
-                                      >
-                                        Tops
-                                      </Link>
-                                    </li>
-                                    <li className="flex">
-                                      <Link
-                                        href="#"
-                                        className="hover:text-gray-800"
-                                      >
-                                        Pants
-                                      </Link>
-                                    </li>
-                                    <li className="flex">
-                                      <Link
-                                        href="#"
-                                        className="hover:text-gray-800"
-                                      >
-                                        Sweaters
-                                      </Link>
-                                    </li>
-                                    <li className="flex">
-                                      <Link
-                                        href="#"
-                                        className="hover:text-gray-800"
-                                      >
-                                        T-Shirts
-                                      </Link>
-                                    </li>
-                                    <li className="flex">
-                                      <Link
-                                        href="#"
-                                        className="hover:text-gray-800"
-                                      >
-                                        Jackets
-                                      </Link>
-                                    </li>
-                                    <li className="flex">
-                                      <Link
-                                        href="#"
-                                        className="hover:text-gray-800"
-                                      >
-                                        Activewear
-                                      </Link>
-                                    </li>
-                                    <li className="flex">
-                                      <Link
-                                        href="#"
-                                        className="hover:text-gray-800"
-                                      >
-                                        Browse All
-                                      </Link>
-                                    </li>
-                                  </ul>
-                                </div>
-                                <div>
-                                  <p
-                                    id="Accessories-heading"
-                                    className="font-medium text-gray-900"
-                                  >
-                                    Accessories
-                                  </p>
-                                  <ul
-                                    role="list"
-                                    aria-labelledby="Accessories-heading"
-                                    className="mt-6 space-y-6 sm:mt-4 sm:space-y-4"
-                                  >
-                                    <li className="flex">
-                                      <Link
-                                        href="#"
-                                        className="hover:text-gray-800"
-                                      >
-                                        Watches
-                                      </Link>
-                                    </li>
-                                    <li className="flex">
-                                      <Link
-                                        href="#"
-                                        className="hover:text-gray-800"
-                                      >
-                                        Wallets
-                                      </Link>
-                                    </li>
-                                    <li className="flex">
-                                      <Link
-                                        href="#"
-                                        className="hover:text-gray-800"
-                                      >
-                                        Bags
-                                      </Link>
-                                    </li>
-                                    <li className="flex">
-                                      <Link
-                                        href="#"
-                                        className="hover:text-gray-800"
-                                      >
-                                        Sunglasses
-                                      </Link>
-                                    </li>
-                                    <li className="flex">
-                                      <Link
-                                        href="#"
-                                        className="hover:text-gray-800"
-                                      >
-                                        Hats
-                                      </Link>
-                                    </li>
-                                    <li className="flex">
-                                      <Link
-                                        href="#"
-                                        className="hover:text-gray-800"
-                                      >
-                                        Belts
-                                      </Link>
-                                    </li>
-                                  </ul>
+                        <>
+                          <div className="relative bg-white h-80 z-30">
+                            <div className="mx-auto max-w-7xl px-8">
+                              <div className="grid grid-cols-2 gap-x-8 gap-y-10 py-16">
+                                <div className="row-start-1 grid grid-cols-3 gap-x-8 gap-y-10 text-sm">
+                                  <div>
+                                    <ul
+                                      role="list"
+                                      aria-labelledby="Clothing-heading"
+                                      className="mt-6 space-y-6 sm:mt-4 sm:space-y-4"
+                                    >
+                                      <li className="flex">
+                                        <Link
+                                          onClick={() => {
+                                            setIsMenNavOpen(false);
+                                            setIsWomenNavOpen(false);
+                                          }}
+                                          href="/products/mens-shirts"
+                                          className="hover:text-gray-800"
+                                        >
+                                          Shirts
+                                        </Link>
+                                      </li>
+                                      <li className="flex">
+                                        <Link
+                                          onClick={() => {
+                                            setIsMenNavOpen(false);
+                                            setIsWomenNavOpen(false);
+                                          }}
+                                          href="/products/mens-shoes"
+                                          className="hover:text-gray-800"
+                                        >
+                                          Shoes
+                                        </Link>
+                                      </li>
+                                      <li className="flex">
+                                        <Link
+                                          onClick={() => {
+                                            setIsMenNavOpen(false);
+                                            setIsWomenNavOpen(false);
+                                          }}
+                                          href="/products/mens-watches"
+                                          className="hover:text-gray-800"
+                                        >
+                                          Watches
+                                        </Link>
+                                      </li>
+                                      <li className="flex">
+                                        <Link
+                                          onClick={() => {
+                                            setIsMenNavOpen(false);
+                                            setIsWomenNavOpen(false);
+                                          }}
+                                          href="/products/sunglasses"
+                                          className="hover:text-gray-800"
+                                        >
+                                          Sunglasses
+                                        </Link>
+                                      </li>
+                                    </ul>
+                                  </div>
                                 </div>
                               </div>
                             </div>
                           </div>
-                        </div>
+                          <OverlayComponent />
+                        </>
                       )}
                     </div>
                   </div>
                 </div>
               </div>
 
-              <div
-                className={`fixed bg-black bg-opacity-25 ${
-                  isNavOpen ? "inset-0" : "inset-none"
-                }`}
-              ></div>
-
               <div className="ml-auto flex items-center">
                 <div className="hidden lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-6">
                   <Link
+                    onClick={() => {
+                      setIsNavOpen(false);
+                    }}
                     href="/"
                     className="text-sm font-medium text-gray-700 hover:text-gray-800"
                   >
@@ -858,6 +575,9 @@ export default function NavigationComponent() {
                     aria-hidden="true"
                   ></span>
                   <Link
+                    onClick={() => {
+                      setIsNavOpen(false);
+                    }}
                     href="/login"
                     className="text-sm font-medium text-gray-700 hover:text-gray-800"
                   >
@@ -868,6 +588,9 @@ export default function NavigationComponent() {
                     aria-hidden="true"
                   ></span>
                   <Link
+                    onClick={() => {
+                      setIsNavOpen(false);
+                    }}
                     href="/signup"
                     className="text-sm font-medium text-gray-700 hover:text-gray-800"
                   >
@@ -877,6 +600,9 @@ export default function NavigationComponent() {
 
                 <div className="hidden lg:ml-8 lg:flex">
                   <Link
+                    onClick={() => {
+                      setIsNavOpen(false);
+                    }}
                     href="#"
                     className="flex items-center text-gray-700 hover:text-gray-800"
                   >
@@ -892,6 +618,9 @@ export default function NavigationComponent() {
 
                 <div className="flex lg:ml-6">
                   <Link
+                    onClick={() => {
+                      setIsNavOpen(false);
+                    }}
                     href="#"
                     className="p-2 text-gray-400 hover:text-gray-500"
                   >
@@ -900,13 +629,13 @@ export default function NavigationComponent() {
                       className="h-6 w-6"
                       fill="none"
                       viewBox="0 0 24 24"
-                      stroke-width="1.5"
+                      strokeWidth="1.5"
                       stroke="currentColor"
                       aria-hidden="true"
                     >
                       <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
                         d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"
                       />
                     </svg>
@@ -914,18 +643,24 @@ export default function NavigationComponent() {
                 </div>
 
                 <div className="ml-4 flow-root lg:ml-6">
-                  <Link href="#" className="group -m-2 flex items-center p-2">
+                  <Link
+                    onClick={() => {
+                      setIsNavOpen(false);
+                    }}
+                    href="#"
+                    className="group -m-2 flex items-center p-2"
+                  >
                     <svg
                       className="h-6 w-6 flex-shrink-0 text-gray-400 group-hover:text-gray-500"
                       fill="none"
                       viewBox="0 0 24 24"
-                      stroke-width="1.5"
+                      strokeWidth="1.5"
                       stroke="currentColor"
                       aria-hidden="true"
                     >
                       <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
                         d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007zM8.625 10.5a.375.375 0 11-.75 0 .375.375 0 01.75 0zm7.5 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z"
                       />
                     </svg>
@@ -937,6 +672,12 @@ export default function NavigationComponent() {
                 </div>
               </div>
             </div>
+            {/* <div
+              className={`absolute  bg-black bg-opacity-25 ${
+                isNavOpen ? "inset-0" : "inset-none"
+              }`}
+            ></div>
+             */}
           </div>
         </nav>
       </header>
