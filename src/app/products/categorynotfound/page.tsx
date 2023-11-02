@@ -10,7 +10,7 @@ export default function CategoryNotFound() {
           Category Not Found
         </h1>
         <p className="mt-6 text-base leading-7 text-gray-600">
-          Sorry, we couldn’t find the product you’re looking for. We are
+          Sorry, we couldn't find the product you're looking for. We are
           constantly working to get more products on our platform
         </p>
         <div className="mt-10 flex items-center justify-center gap-x-6">
