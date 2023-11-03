@@ -15,7 +15,7 @@ export default function BuyNow(): JSX.Element {
     const apiurl = "https://dummyjson.com/products/" + product;
 
     const response = await axios.get(apiurl);
-    console.log(response.data);
+    // console.log(response.data);
 
     setProductFromId(response.data);
     setImages(response.data.images);

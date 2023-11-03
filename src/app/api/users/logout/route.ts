@@ -13,7 +13,7 @@ export async function GET() {
         response.cookies.set('token', '', { httpOnly: true, expires: new Date(0) });
         return response
     } catch (error: any) {
-        console.log('error logging out', error.message);
+        // console.log('error logging out', error.message);
 
         return NextResponse.json({ error: error }, { status: 500 })
     }

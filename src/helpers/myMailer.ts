@@ -48,7 +48,7 @@ export const sendEmail = async ({ email, emailType, userId }: any) => {
 
         return mailResponse
     } catch (error: any) {
-        console.log('Error sending mail', error);
+        // console.log('Error sending mail', error);
         throw new Error(error.message)
 
     }

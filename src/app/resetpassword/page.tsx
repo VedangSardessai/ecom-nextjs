@@ -35,7 +35,7 @@ export default function ResetPassword(): JSX.Element {
     } catch (error: any) {
       setEmailError(true);
       setIsLoading(false);
-      console.log(error.message, "Error in resetting password");
+      // console.log(error.message, "Error in resetting password");
       setError(true);
     }
   };
@@ -46,17 +46,17 @@ export default function ResetPassword(): JSX.Element {
         token,
         newPassword,
       });
-      console.log(response.data);
+      // console.log(response.data);
       setVerified(true);
     } catch (error: any) {
-      console.log(error.message, "Error in verifying email");
+      // console.log(error.message, "Error in verifying email");
       setError(true);
     }
   };
 
   useEffect(() => {
     if (token.length > 0) getEmail();
-    console.log(token);
+    // console.log(token);
   }, [token, getEmail]);
 
   const validatePassword = () => {
@@ -88,7 +88,7 @@ export default function ResetPassword(): JSX.Element {
 
   useEffect(() => {
     const urlToken = window.location.search.split("=")[1];
-    console.log(urlToken);
+    // console.log(urlToken);
 
     setToken(urlToken || "");
   }, []);

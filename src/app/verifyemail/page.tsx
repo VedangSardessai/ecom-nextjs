@@ -13,7 +13,7 @@ export default function VerifyEmail() {
 
   useEffect(() => {
     const urlToken = window.location.search.split("=")[1];
-    console.log(token);
+    // console.log(token);
 
     setToken(urlToken || "");
   }, [token]);
@@ -22,15 +22,15 @@ export default function VerifyEmail() {
     const verifyUserEmail = async () => {
       try {
         const response = await axios.post("/api/users/verifyemail", { token });
-        console.log(response.data);
+        // console.log(response.data);
         setVerified(true);
       } catch (error: any) {
-        console.log(error.message, "Error in verifying email");
+        // console.log(error.message, "Error in verifying email");
         setError(true);
       }
     };
     if (token.length > 0) verifyUserEmail();
-    console.log(token);
+    // console.log(token);
   }, [token]);
 
   return (

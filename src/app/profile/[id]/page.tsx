@@ -15,7 +15,7 @@ export default function UserProfile(): JSX.Element {
   const logout = async () => {
     try {
       const response = await axios.get("/api/users/logout");
-      console.log("User logged out");
+      // console.log("User logged out");
 
       setSuccess(true);
       successToast();
@@ -24,13 +24,13 @@ export default function UserProfile(): JSX.Element {
     } catch (error: any) {
       setSuccess(false);
       failureToast();
-      console.log("error logging out ", error.message);
+      // console.log("error logging out ", error.message);
     }
   };
 
   const getCurrentUserDetails = async () => {
     const response = await axios.get("/api/users/user");
-    console.log(response.data);
+    // console.log(response.data);
 
     setData(response.data.data.username);
   };

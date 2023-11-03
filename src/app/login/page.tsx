@@ -29,11 +29,11 @@ export default function Login(): JSX.Element {
   const getCurrentUserDetails = async () => {
     try {
       const response = await axios.get("/api/users/user");
-      console.log(response.data);
+      // console.log(response.data);
       setData(response.data.data);
       return response.data.data; // Return the username
     } catch (error) {
-      console.error("Error fetching user details:", error);
+      // console.error("Error fetching user details:", error);
       return null; // Handle the error gracefully
     }
   };
@@ -47,7 +47,7 @@ export default function Login(): JSX.Element {
       if (data) {
         setSuccess(true);
         successToast();
-        console.log(data);
+        // console.log(data);
         router.push(`/profile/${data._id}`);
       }
     } catch (error: any) {
@@ -55,7 +55,7 @@ export default function Login(): JSX.Element {
       if (error.response) failureToast(error.response.data.error);
       else failureToast("Something went wrong, please try again");
 
-      console.error("Error login:", errorMessage);
+      // console.error("Error login:", errorMessage);
     }
   };
   return (

@@ -32,7 +32,7 @@ export default function ResetEmail() {
         successToast();
         setTimeout(() => router.push("/login"), 1000);
       } catch (error: any) {
-        console.log("signup failed", error.message);
+        // console.log("signup failed", error.message);
         setSuccess(false);
         failureToast();
       } finally {

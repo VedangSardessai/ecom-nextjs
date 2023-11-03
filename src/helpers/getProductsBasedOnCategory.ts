@@ -8,8 +8,9 @@ const getProductsBasedOnCategory = async (category: string) => {
     try {
         const response = await axios.get(apiUrl);        
         return response.data.products;
-    } catch (error) {
-        console.log(error);
+    } catch (error:any) {
+        // console.log(error);
+        return error.message
     }
 };
 

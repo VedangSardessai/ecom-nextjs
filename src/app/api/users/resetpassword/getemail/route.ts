@@ -24,18 +24,18 @@ export async function POST(request: NextRequest) {
 
         });
 
-        console.log(user);
+        // console.log(user);
 
 
 
         if (!user) {
-            console.log('User not found');
+            // console.log('User not found');
 
             return NextResponse.json({ error: "Invalid User Token" },
                 { status: 400 })
         }
 
-        console.log(user.forgotPasswordToken, 'forgot password token');
+        // console.log(user.forgotPasswordToken, 'forgot password token');
 
 
 
@@ -43,7 +43,7 @@ export async function POST(request: NextRequest) {
         return NextResponse.json({ user: user, success: true })
 
     } catch (error: any) {
-        console.log(error.message, 'on line 38');
+        // console.log(error.message, 'on line 38');
 
         return NextResponse.json({ error: error.message }, { status: 500 })
     }

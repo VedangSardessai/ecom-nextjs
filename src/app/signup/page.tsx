@@ -25,10 +25,10 @@ export default function SignUp(): JSX.Element {
     try {
       setIsLoading(true);
       setSuccess(true);
-      console.log(user);
+      // console.log(user);
 
       const response = await axios.post("/api/users/signup", user);
-      console.log("signup successful", response.data);
+      // console.log("signup successful", response.data);
 
       successToast();
       setUser({
@@ -39,7 +39,7 @@ export default function SignUp(): JSX.Element {
 
       setTimeout(() => router.push("/login"), 1000);
     } catch (error: any) {
-      console.log("signup failed", error.message);
+      // console.log("signup failed", error.message);
       setSuccess(false);
       failureToast();
     } finally {
@@ -52,7 +52,7 @@ export default function SignUp(): JSX.Element {
 
     if (user.password.length < 8 || user.username.length < 3)
       setButtonDisabled(true);
-    console.log(buttonDisabled);
+    // console.log(buttonDisabled);
     
   },[user]);
 

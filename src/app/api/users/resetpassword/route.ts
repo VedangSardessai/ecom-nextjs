@@ -25,13 +25,13 @@ export async function POST(request: NextRequest) {
         const changePassword = await User.findOneAndUpdate(user._id, { password: newPassword })
 
         if (!user) {
-            console.log('User not found');
+            // console.log('User not found');
 
             return NextResponse.json({ error: "Invalid User Token" },
                 { status: 400 })
         }
 
-        console.log(user);
+        // console.log(user);
 
         const salt = await bcryptjs.genSalt(10)
         const hashedPassword = await bcryptjs.hash(newPassword, salt)
@@ -40,7 +40,7 @@ export async function POST(request: NextRequest) {
         await user.save()
 
 
-        console.log(user.forgotPasswordToken, 'forgot password token');
+        // console.log(user.forgotPasswordToken, 'forgot password token');
 
 
 
@@ -48,7 +48,7 @@ export async function POST(request: NextRequest) {
         return NextResponse.json({ messsage: "Password reset successfully", success: true })
 
     } catch (error: any) {
-        console.log(error.message, 'on line 38');
+        // console.log(error.message, 'on line 38');
 
         return NextResponse.json({ error: error.message }, { status: 500 })
     }

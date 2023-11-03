@@ -21,7 +21,7 @@ export default function NavigationComponent() {
 
   const toggleMobileMenu = () => {
     setIsNavOpen(!isNavOpen);
-    console.log(isNavOpen);
+    // console.log(isNavOpen);
   };
 
   return (
