@@ -2,9 +2,13 @@
 import Link from "next/link";
 import React from "react";
 import { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
 import OverlayComponent from "../overlay/page";
 
 export default function NavigationComponent() {
+  const cartItems = useSelector((state: any) => state.cart);
+  const itemCount = cartItems.items.length;
+
   const [isWomenNavOpen, setIsWomenNavOpen] = useState(false);
   const [isMenNavOpen, setIsMenNavOpen] = useState(false);
   const [isNavOpen, setIsNavOpen] = useState(false);
@@ -665,7 +669,7 @@ export default function NavigationComponent() {
                       />
                     </svg>
                     <span className="ml-2 text-sm font-medium text-gray-700 group-hover:text-gray-800">
-                      0
+                      {itemCount}
                     </span>
                     <span className="sr-only">items in cart, view bag</span>
                   </Link>

@@ -2,6 +2,9 @@
 import { useRouter, usePathname } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { CartItem, addToCart } from "@/redux/features/cart-slice";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "@/redux/store";
 
 export default function BuyNow(): JSX.Element {
   const router = useRouter();
@@ -30,6 +33,21 @@ export default function BuyNow(): JSX.Element {
   useEffect(() => {
     getProductFromId();
   }, []);
+
+  const dispatch = useDispatch<AppDispatch>();
+
+  const addToCartItem = (e: any) => {
+    e.preventDefault();
+    const cartItem: CartItem = {
+      id: productFromId.id,
+      name: productFromId.title, // You may want to replace this with the actual name field
+      price: productFromId.price,
+      quantity: 1, // Initialize the quantity to 1
+    };
+    const dispatchResp = dispatch(addToCart(cartItem));
+
+    console.log(dispatchResp);
+  };
 
   return (
     <div className="bg-white">
@@ -238,7 +256,8 @@ export default function BuyNow(): JSX.Element {
               </div>
 
               <button
-                type="submit"
+                onClick={addToCartItem}
+                type="button"
                 className="mt-10 flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
               >
                 Add to bag
