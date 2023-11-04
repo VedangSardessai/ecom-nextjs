@@ -3,11 +3,13 @@ import Link from "next/link";
 import React from "react";
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
+import { useRouter } from "next/navigation";
 import OverlayComponent from "../overlay/page";
 
 export default function NavigationComponent() {
   const cartItems = useSelector((state: any) => state.cart);
   const itemCount = cartItems.items.length;
+  const router = useRouter();
 
   const [isWomenNavOpen, setIsWomenNavOpen] = useState(false);
   const [isMenNavOpen, setIsMenNavOpen] = useState(false);
@@ -290,13 +292,7 @@ export default function NavigationComponent() {
               </div>
 
               <div className="border-t border-gray-200 px-4 py-6">
-                <Link
-                  onClick={() => {
-                    setIsNavOpen(false);
-                  }}
-                  href="#"
-                  className="-m-2 flex items-center p-2"
-                >
+                <span className="-m-2 flex items-center p-2">
                   <img
                     src="https://duckduckgo.com/i/69626059.png"
                     alt=""
@@ -306,7 +302,7 @@ export default function NavigationComponent() {
                     INR
                   </span>
                   <span className="sr-only">, change currency</span>
-                </Link>
+                </span>
               </div>
             </div>
           </div>
@@ -649,9 +645,11 @@ export default function NavigationComponent() {
                 <div className="ml-4 flow-root lg:ml-6">
                   <Link
                     onClick={() => {
+                      setIsMenNavOpen(false);
+                      setIsWomenNavOpen(false);
                       setIsNavOpen(false);
                     }}
-                    href="#"
+                    href="/products/cart/123"
                     className="group -m-2 flex items-center p-2"
                   >
                     <svg
