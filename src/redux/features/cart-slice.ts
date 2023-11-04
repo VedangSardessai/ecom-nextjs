@@ -2,6 +2,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 export type CartItem = {
     id: number; // You may use a unique identifier for each item
     name: string;
+    img: string;
     price: number;
     quantity: number;
 };
@@ -27,6 +28,8 @@ export const cart = createSlice({
                 action.payload.quantity = 1; // Initialize quantity if it doesn't exist
                 state.items.push(action.payload);
             }
+            localStorage.setItem("cart", JSON.stringify(state.items));
+
         },
         increaseQuantity: (state, action: PayloadAction<number>) => {
             const itemToIncrease = state.items.find((item) => item.id === action.payload);
@@ -34,6 +37,9 @@ export const cart = createSlice({
             if (itemToIncrease) {
                 itemToIncrease.quantity += 1;
             }
+
+            localStorage.setItem("cart", JSON.stringify(state.items));
+
         },
         decreaseQuantity: (state, action: PayloadAction<number>) => {
             const itemToDecrease = state.items.find((item) => item.id === action.payload);
@@ -41,10 +47,22 @@ export const cart = createSlice({
             if (itemToDecrease && itemToDecrease.quantity > 1) {
                 itemToDecrease.quantity -= 1;
             }
+
+            localStorage.setItem("cart", JSON.stringify(state.items));
+
+        },
+        removeFromCart: (state, action: PayloadAction<number>) => {
+            const index = state.items.findIndex((item) => item.id === action.payload);
+
+            if (index !== -1) {
+                state.items.splice(index, 1);
+            }
+            localStorage.setItem("cart", JSON.stringify(state.items));
+
         },
     }
 })
 
 
-export const { addToCart, increaseQuantity, decreaseQuantity } = cart.actions;
+export const { addToCart, increaseQuantity, decreaseQuantity, removeFromCart } = cart.actions;
 export default cart.reducer;
