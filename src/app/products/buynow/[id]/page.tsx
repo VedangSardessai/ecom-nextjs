@@ -36,14 +36,26 @@ export default function BuyNow(): JSX.Element {
 
   const dispatch = useDispatch<AppDispatch>();
 
+  const cartFromStorage = localStorage.getItem("cart");
+  const initialCart = cartFromStorage ? JSON.parse(cartFromStorage) : [];
+  const [cart, setCart] = useState<CartItem[]>(initialCart);
+
   const addToCartItem = (e: any) => {
-    e.preventDefault();
     const cartItem: CartItem = {
       id: productFromId.id,
-      name: productFromId.title, // You may want to replace this with the actual name field
+      name: productFromId.title,
+      img: productFromId.images[1],
       price: productFromId.price,
-      quantity: 1, // Initialize the quantity to 1
+      quantity: 1,
     };
+
+    // Add the item to the cart
+    setCart((prevCart) => [...prevCart, cartItem]);
+
+    // Save the updated cart to local storage
+    localStorage.setItem("cart", JSON.stringify([...cart, cartItem]));
+
+    // Dispatch the action to update the Redux store (if needed)
     const dispatchResp = dispatch(addToCart(cartItem));
 
     console.log(dispatchResp);
