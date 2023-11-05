@@ -3,12 +3,14 @@ import React from "react";
 import Link from "next/link";
 
 export default function Home() {
-
   return (
     <main className="flex h-full flex-col bg-gray-200 ">
       <h1 className="mb-10 text-center">Home Page</h1>
-      <div className="grid grid-cols-3 gap-4 m-5">
-        <Link href='/products/shoes' className="cursor-pointer bg-white p-5 m-2 min-w-full h-auto">
+      <div className="m-5 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:gap-x-8">
+        <Link
+          href="/products/shoes"
+          className="cursor-pointer bg-white p-5 m-2 min-w-full h-auto"
+        >
           <h2 className="text-2xl font-bold mb-2 mt-3 ">
             Up to 40% off | Shoes & handbags
           </h2>
@@ -48,7 +50,10 @@ export default function Home() {
             </span>
           </div>
         </Link>
-        <Link href='/products/furniture' className="cursor-pointer bg-white p-5 m-2 min-w-full h-auto">
+        <Link
+          href="/products/furniture"
+          className="cursor-pointer bg-white p-5 m-2 min-w-full h-auto"
+        >
           <h2 className="text-2xl font-bold mb-2 mt-3">
             Up to 70% off | Deals on Ecom Brands
           </h2>
@@ -101,7 +106,10 @@ export default function Home() {
             </span>
           </div>
         </Link>
-        <Link href='/products/smartphone' className="cursor-pointer bg-white p-5 m-2 min-w-full h-auto">
+        <Link
+          href="/products/smartphone"
+          className="cursor-pointer bg-white p-5 m-2 min-w-full h-auto"
+        >
           <h2 className="text-2xl font-bold mb-2 mt-3 ">
             Deals on smartphones that suits your budget
           </h2>
@@ -148,7 +156,10 @@ export default function Home() {
           </div>
         </Link>
 
-        <Link href='/products/furniture' className="cursor-pointer bg-white p-5 m-2 min-w-full h-auto">
+        <Link
+          href="/products/furniture"
+          className="cursor-pointer bg-white p-5 m-2 min-w-full h-auto"
+        >
           <h2 className="text-2xl font-bold mb-2 mt-3 ">
             Minimum 50% off | Restyle your home
           </h2>
@@ -188,7 +199,10 @@ export default function Home() {
             </span>
           </div>
         </Link>
-        <Link href='/products/laptops' className="cursor-pointer bg-white p-5 m-2 min-w-full h-auto">
+        <Link
+          href="/products/laptops"
+          className="cursor-pointer bg-white p-5 m-2 min-w-full h-auto"
+        >
           <h2 className="flex text-2xl font-bold mb-2 mt-3 items-center justify-center ">
             Up to 80% off | Laptops
           </h2>
@@ -202,7 +216,7 @@ export default function Home() {
           <h2 className="flex text-2xl font-bold mb-2 mt-3 items-center justify-center ">
             Log in for your best experience
           </h2>
-          <div className="flex items-center justify-center rounded-md m-20 p-5 bg-blue-400 text-white font-bold text-lg">
+          <div className="flex items-center justify-center rounded-md p-5 bg-blue-400 text-white font-bold text-lg">
             <Link href="/login">Log In Securely</Link>
           </div>
         </div>
