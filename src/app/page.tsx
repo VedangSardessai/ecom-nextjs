@@ -6,7 +6,7 @@ export default function Home() {
   return (
     <main className="flex h-full flex-col bg-gray-200 ">
       <h1 className="mb-10 text-center">Home Page</h1>
-      <div className="m-5 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:gap-x-8">
+      <div className="mr-4 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:gap-x-8">
         <Link
           href="/products/shoes"
           className="cursor-pointer bg-white p-5 m-2 min-w-full h-auto"
@@ -216,7 +216,8 @@ export default function Home() {
           <h2 className="flex text-2xl font-bold mb-2 mt-3 items-center justify-center ">
             Log in for your best experience
           </h2>
-          <div className="flex items-center justify-center rounded-md p-5 bg-blue-400 text-white font-bold text-lg">
+          <div className="flex mt-28 items-center justify-center rounded-md p-5 bg-blue-400 text-white font-medium text-lg @apply bg-[linear-gradient(to_right,#1FA2FF_0%,#12D8FA_51%,#1FA2FF_100%)] text-center uppercase transition-[0.5s] bg-[200%_auto] shadow-[0_0_20px_#eee] m-2.5 px-[45px] py-[15px] hover:bg-[right_center] hover:text-white hover:no-underline;
+">
             <Link href="/login">Log In Securely</Link>
           </div>
         </div>
