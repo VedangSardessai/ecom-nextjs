@@ -4,6 +4,11 @@ import { useRouter } from "next/navigation";
 import axios from "axios";
 import Link from "next/link";
 import toast, { Toaster } from "react-hot-toast";
+import { useDispatch } from "react-redux";
+import authReducer from "../../redux/features/auth-slice";
+import { login } from "../../redux/features/auth-slice";
+import { AppDispatch } from "@/redux/store";
+import { useSelector } from "react-redux";
 
 export default function Login(): JSX.Element {
   const [user, setUser] = React.useState({
@@ -38,6 +43,8 @@ export default function Login(): JSX.Element {
     }
   };
 
+  const dispatch = useDispatch<AppDispatch>();
+
   const onLogin = async () => {
     try {
       setIsLoading(true);
@@ -47,7 +54,13 @@ export default function Login(): JSX.Element {
       if (data) {
         setSuccess(true);
         successToast();
-        // console.log(data);
+
+        console.log(user.email);
+
+        // const userDataFromLogin :
+
+        const dispatchData = dispatch(login(user.email));
+        console.log(dispatchData);
         router.push(`/profile/${data._id}`);
       }
     } catch (error: any) {
