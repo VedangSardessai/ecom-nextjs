@@ -5,6 +5,7 @@ import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useRouter } from "next/navigation";
 import OverlayComponent from "../overlay/page";
+import axios from "axios";
 
 export default function NavigationComponent() {
   const cartItems = useSelector((state: any) => state.cart);
@@ -30,11 +31,27 @@ export default function NavigationComponent() {
     // console.log(isNavOpen);
   };
 
+  const [user, setUser] = useState(false);
+  const getCurrentUserDetails = async () => {
+    try {
+      const response = await axios.get("/api/users/user");
+      // console.log(response.data.data);
+      setUser(true);
+    } catch (error: any) {
+      setUser(false);
+      console.log(error.message);
+    }
+  };
+
+  useEffect(() => {
+    getCurrentUserDetails();
+  }, []);
+
   return (
     <div className="bg-white">
       <div className="relative  lg:hidden" role="dialog" aria-modal="true">
         <div
-          className={`fixed bg-black bg-opacity-75 z-30 ${
+          className={` bg-black bg-opacity-75 z-30 ${
             isNavOpen ? "inset-0" : "inset-none"
           }`}
         ></div>
@@ -267,28 +284,43 @@ export default function NavigationComponent() {
                     Home
                   </Link>
                 </div>
-                <div className="flow-root">
-                  <Link
+                {!user && (
+                  <>
+                    <div className="flow-root">
+                      <Link
+                        onClick={() => {
+                          setIsNavOpen(false);
+                        }}
+                        href="/login"
+                        className="-m-2 block p-2 font-medium text-gray-900"
+                      >
+                        Log in
+                      </Link>
+                    </div>
+                    <div className="flow-root">
+                      <Link
+                        onClick={() => {
+                          setIsNavOpen(false);
+                        }}
+                        href="/signup"
+                        className="-m-2 block p-2 font-medium text-gray-900"
+                      >
+                        Create account
+                      </Link>
+                    </div>{" "}
+                  </>
+                )}
+
+                {user && (
+                  <p
                     onClick={() => {
                       setIsNavOpen(false);
                     }}
-                    href="/login"
-                    className="-m-2 block p-2 font-medium text-gray-900"
+                    className="cursor-pointer text-sm font-medium text-gray-700 hover:text-gray-800"
                   >
-                    Log in
-                  </Link>
-                </div>
-                <div className="flow-root">
-                  <Link
-                    onClick={() => {
-                      setIsNavOpen(false);
-                    }}
-                    href="/signup"
-                    className="-m-2 block p-2 font-medium text-gray-900"
-                  >
-                    Create account
-                  </Link>
-                </div>
+                    Logout
+                  </p>
+                )}
               </div>
 
               <div className="border-t border-gray-200 px-4 py-6">
@@ -570,32 +602,47 @@ export default function NavigationComponent() {
                   >
                     Home
                   </Link>
-                  <span
-                    className="h-6 w-px bg-gray-200"
-                    aria-hidden="true"
-                  ></span>
-                  <Link
-                    onClick={() => {
-                      setIsNavOpen(false);
-                    }}
-                    href="/login"
-                    className="text-sm font-medium text-gray-700 hover:text-gray-800"
-                  >
-                    Log in
-                  </Link>
-                  <span
-                    className="h-6 w-px bg-gray-200"
-                    aria-hidden="true"
-                  ></span>
-                  <Link
-                    onClick={() => {
-                      setIsNavOpen(false);
-                    }}
-                    href="/signup"
-                    className="text-sm font-medium text-gray-700 hover:text-gray-800"
-                  >
-                    Create account
-                  </Link>
+                  {!user && (
+                    <>
+                      <span
+                        className="h-6 w-px bg-gray-200"
+                        aria-hidden="true"
+                      ></span>
+                      <Link
+                        onClick={() => {
+                          setIsNavOpen(false);
+                        }}
+                        href="/login"
+                        className="text-sm font-medium text-gray-700 hover:text-gray-800"
+                      >
+                        Log in
+                      </Link>
+                      <span
+                        className="h-6 w-px bg-gray-200"
+                        aria-hidden="true"
+                      ></span>
+                      <Link
+                        onClick={() => {
+                          setIsNavOpen(false);
+                        }}
+                        href="/signup"
+                        className="text-sm font-medium text-gray-700 hover:text-gray-800"
+                      >
+                        Create account
+                      </Link>
+                    </>
+                  )}
+
+                  {user && (
+                    <p
+                      onClick={() => {
+                        setIsNavOpen(false);
+                      }}
+                      className="cursor-pointer text-sm font-medium text-gray-700 hover:text-gray-800"
+                    >
+                      Logout
+                    </p>
+                  )}
                 </div>
 
                 <div className="hidden lg:ml-8 lg:flex">
@@ -649,7 +696,7 @@ export default function NavigationComponent() {
                       setIsWomenNavOpen(false);
                       setIsNavOpen(false);
                     }}
-                    href="/products/cart/123"
+                    href="/products/cart/cart"
                     className="group -m-2 flex items-center p-2"
                   >
                     <svg
