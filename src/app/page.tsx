@@ -34,7 +34,7 @@ export default function Home() {
                 src="https://images-eu.ssl-images-amazon.com/images/G/31/img23/Softlines_JWL_SH_GW_Assets/PCQC/phase3/Men_low_res._SY116_CB575248862_.jpg"
                 alt=""
               />
-              <p>Men's shoes</p>
+              <p>Men&apos;s shoes</p>
             </span>
             <span>
               <img
@@ -42,7 +42,7 @@ export default function Home() {
                 src="https://images-eu.ssl-images-amazon.com/images/G/31/img23/Softlines_JWL_SH_GW_Assets/PCQC/phase3/Heels_low_res._SY116_CB575248862_.png"
                 alt=""
               />
-              <p>Women's shoes</p>
+              <p>Women&apos;s shoes</p>
             </span>
             <span>
               <img
