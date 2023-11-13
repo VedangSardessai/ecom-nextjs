@@ -1,12 +1,15 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import CartDisplayerComponent from "@/app/products/cart/[id]/page";
-import toast from "react-hot-toast";
+import { toast, Toaster } from "react-hot-toast";
 import axios from "axios";
-import { ID } from "appwrite";
+import crypto from "crypto";
+import { useRouter } from "next/navigation";
+import { useSelector } from "react-redux";
 
 type FormData = {
   order_id: string;
+  user_id: string;
   firstName: string;
   lastName: string;
   email: string;
@@ -27,7 +30,8 @@ type FormErrors = {
 };
 export default function CheckoutComponent() {
   const [formData, setFormData] = useState<FormData>({
-    order_id: "54545482645454",
+    order_id: "",
+    user_id: "",
     firstName: "",
     lastName: "",
     email: "",
@@ -37,7 +41,7 @@ export default function CheckoutComponent() {
     postalCode: "",
   });
 
-  const [errors, setErrors] = useState<FormErrors>({
+  const [errors, setErrors] = useState({
     firstName: "",
     lastName: "",
     email: "",
@@ -48,10 +52,6 @@ export default function CheckoutComponent() {
   });
 
   const failureToast = (error: any) => toast(error);
-
-  useEffect(() => {
-    console.log(formData);
-  }, [formData]);
 
   const validateForm = () => {
     const newErrors = {} as FormErrors;
@@ -109,20 +109,52 @@ export default function CheckoutComponent() {
     return Object.values(newErrors).every((error) => error === "");
   };
 
+  function generateAlphanumericOrderId(email: string, address: string): string {
+    // Concatenate the email, address, and current timestamp
+    const dataToHash = email + address + Date.now();
+
+    // Use a cryptographic hash function (e.g., SHA-256) to generate a fixed-length hash
+    const hash = crypto.createHash("sha256").update(dataToHash).digest("hex");
+
+    // Extract the first 10 characters from the hash
+    const truncatedHash = hash.substring(0, 10);
+
+    // Convert the hash to base36 to get an alphanumeric string
+    const alphanumericId = parseInt(truncatedHash, 16)
+      .toString(36)
+      .toLocaleUpperCase();
+
+    return alphanumericId;
+  }
+  const router = useRouter();
+
+  const cart = useSelector((state: any) => state.cart.items); // Access the 'items' property
   const handleSubmit = async (e: any) => {
     e.preventDefault();
     const isFormValid = validateForm();
 
     if (isFormValid) {
-      const uniqueId = ID.unique();
-      // setFormData({ ...formData, order_id: 'uniqueId' });
-      console.log("Form is valid. Submitting data: ", { formData });
-      const response = await axios.post(
-        "/api/appwrite_api/add_to_orders",
-        formData
+      const order = generateAlphanumericOrderId(
+        formData.email,
+        formData.address
       );
+
+      // console.log("Form is valid. Submitting data: ", {
+      //   formData,
+      //   order,
+      //   cart,
+      // });
+
+      // Use the order directly in the POST request
+      const response = await axios.post("/api/appwrite_api/add_to_orders", {
+        ...formData,
+        order_id: order,
+        cart: JSON.stringify(cart), // Add cart to the request body
+      });
+
       setFormData({
         order_id: "",
+        user_id: "",
         firstName: "",
         lastName: "",
         address: "",
@@ -131,14 +163,50 @@ export default function CheckoutComponent() {
         email: "",
         postalCode: "",
       });
+
+      toast("Order has been placed successfully!!");
+      router.push("");
     } else {
       // Form is not valid, you can display error messages or take other actions
       console.log(errors);
-      console.log("Form is not valid");
+      // console.log("Form is not valid");
     }
   };
+
+  const [user, setUser] = useState<string>("");
+
+  const getCurrentUserDetails = async () => {
+    try {
+      const response = await axios.get("/api/users/user");
+      // console.log(response.data.data);
+      setUser(response.data.data._id);
+      setFormData({ ...formData, user_id: response.data.data._id }); // Set user_id after data is fetched
+    } catch (error: any) {
+      console.log(error.message);
+    }
+  };
+
+  useEffect(() => {
+    getCurrentUserDetails();
+  }, []);
+
   return (
     <>
+      <Toaster
+        position="top-right"
+        reverseOrder={false}
+        toastOptions={{
+          style: {
+            background: "green",
+            color: "white",
+            margin: "32px",
+            borderRadius: "8px",
+            paddingTop: "25px",
+            paddingBottom: "25px",
+            fontSize: "18px",
+          },
+        }}
+      />
       <div className="m-10 flex items-center justify-center gap-x-6">
         <button
           onClick={handleSubmit}
@@ -227,27 +295,6 @@ export default function CheckoutComponent() {
                     />
                   </div>
                 </div>
-
-                {/* <div className="sm:col-span-3">
-                  <label
-                    htmlFor="country"
-                    className="block text-sm font-medium leading-6 text-gray-900"
-                  >
-                    Country
-                  </label>
-                  <div className="mt-2">
-                    <select
-                      id="country"
-                      name="country"
-                      autoComplete="country-name"
-                      className="pr-32 block  rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
-                    >
-                      <option>United States</option>
-                      <option>Canada</option>
-                      <option>Mexico</option>
-                    </select>
-                  </div>
-                </div> */}
 
                 <div className="col-span-full">
                   <label
