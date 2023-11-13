@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 
 export default function Home() {
   const data = useSelector((state: any) => state.auth);
-  console.log(data);
+  // console.log(data);
 
   return (
     <main className="flex h-full flex-col bg-gray-200 ">

@@ -58,7 +58,7 @@ export default function BuyNow(): JSX.Element {
     // Dispatch the action to update the Redux store (if needed)
     const dispatchResp = dispatch(addToCart(cartItem));
 
-    console.log(dispatchResp);
+    // console.log(dispatchResp);
   };
 
   return (
