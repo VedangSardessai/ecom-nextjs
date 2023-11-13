@@ -13,7 +13,7 @@ import {
 import Link from "next/link";
 import axios from "axios";
 
-interface CartDisplayerProps {
+export interface CartDisplayerProps {
   summary: boolean;
 }
 
