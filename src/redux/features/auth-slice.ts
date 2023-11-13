@@ -21,10 +21,10 @@ export const auth = createSlice({
     login: (state, action: PayloadAction<string>) => {
       state.isAuth = true;
       state.email = action.payload;
-      // You don't need to modify _id in this action.
-    },
+
+        },
   },
 });
 
-export const { signout, login } = auth.actions;
+// export const { signout, login } = auth.actions;
 export default auth.reducer;
