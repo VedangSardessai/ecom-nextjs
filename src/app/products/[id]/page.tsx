@@ -54,7 +54,9 @@ export default function ProductCategory(): JSX.Element {
   return (
     <>
       <div className="flex flex-col items-center justify-center min-h-screen py-2">
-        <h1>{category} </h1>
+        <h1 className="capitalize mt-10 mb-10 text-2xl text-gray-700 font-semibold tracking-wider ">
+          {category.replace(/-/g, " ")}{" "}
+        </h1>
         <DisplayProducts products={products} />
         <hr />
       </div>
