@@ -9,8 +9,7 @@ export default function Home() {
 
   return (
     <main className="flex h-full flex-col bg-gray-200 ">
-      <h1 className="mb-10 text-center">Home Page</h1>
-      <div className="mr-4 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:gap-x-8">
+      <div className="mt-10 mr-4 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:gap-x-8">
         <Link
           href="/products/shoes"
           className="cursor-pointer bg-white p-5 m-2 min-w-full h-auto"
