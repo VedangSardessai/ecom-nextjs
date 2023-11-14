@@ -14,7 +14,7 @@ import Link from "next/link";
 import axios from "axios";
 
 export interface CartDisplayerProps {
-  summary: boolean;
+  summary?: boolean;
 }
 
 const CartDisplayerComponent: React.FC<CartDisplayerProps> = ({ summary }) => {
