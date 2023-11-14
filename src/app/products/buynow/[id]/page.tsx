@@ -32,7 +32,7 @@ export default function BuyNow(): JSX.Element {
   };
   useEffect(() => {
     getProductFromId();
-  }, []);
+  }, [getProductFromId]);
 
   const dispatch = useDispatch<AppDispatch>();
 

@@ -188,7 +188,7 @@ export default function CheckoutComponent() {
 
   useEffect(() => {
     getCurrentUserDetails();
-  }, []);
+  }, [getCurrentUserDetails]);
 
   return (
     <>

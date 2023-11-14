@@ -25,21 +25,6 @@ export default function ResetPassword(): JSX.Element {
   const [userEmail, setUserEmail] = useState("");
   const router = useRouter();
 
-  const getEmail = async () => {
-    try {
-      const response = await axios.post("/api/users/resetpassword/getemail", {
-        token,
-      });
-      setEmailError(false);
-      setUserEmail(response.data.user.email);
-    } catch (error: any) {
-      setEmailError(true);
-      setIsLoading(false);
-      // console.log(error.message, "Error in resetting password");
-      setError(true);
-    }
-  };
-
   const resetPassword = async () => {
     try {
       const response = await axios.post("/api/users/resetpassword", {
@@ -55,9 +40,24 @@ export default function ResetPassword(): JSX.Element {
   };
 
   useEffect(() => {
+    const getEmail = async () => {
+      try {
+        const response = await axios.post("/api/users/resetpassword/getemail", {
+          token,
+        });
+        setEmailError(false);
+        setUserEmail(response.data.user.email);
+      } catch (error: any) {
+        setEmailError(true);
+        setIsLoading(false);
+        // console.log(error.message, "Error in resetting password");
+        setError(true);
+      }
+    };
+
     if (token.length > 0) getEmail();
     // console.log(token);
-  }, [token, getEmail]);
+  }, [token]);
 
   const validatePassword = () => {
     const passwordRegex = /^(?=.*[A-Za-z0-9])(?=.*[^A-Za-z0-9]).{8,}$/;
