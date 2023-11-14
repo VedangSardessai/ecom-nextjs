@@ -13,13 +13,10 @@ import {
 import Link from "next/link";
 import axios from "axios";
 
-export interface CartDisplayerProps {
-  summary?: boolean;
-}
 
 export default function CartDisplayerComponent({
   summary,
-}: CartDisplayerProps) {
+}:any) {
   const dispatch = useDispatch();
   const cartItems = useSelector((state: any) => state.cart.items); // Access the 'items' property
   const [cartItemDisplay, setCartItemDisplay] = useState([]);
