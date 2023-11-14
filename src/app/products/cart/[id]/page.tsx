@@ -17,7 +17,9 @@ export interface CartDisplayerProps {
   summary?: boolean;
 }
 
-const CartDisplayerComponent: React.FC<CartDisplayerProps> = ({ summary }) => {
+export default function CartDisplayerComponent({
+  summary,
+}: CartDisplayerProps) {
   const dispatch = useDispatch();
   const cartItems = useSelector((state: any) => state.cart.items); // Access the 'items' property
   const [cartItemDisplay, setCartItemDisplay] = useState([]);
@@ -254,6 +256,4 @@ const CartDisplayerComponent: React.FC<CartDisplayerProps> = ({ summary }) => {
       </div>
     </>
   );
-};
-
-export default CartDisplayerComponent;
+}
