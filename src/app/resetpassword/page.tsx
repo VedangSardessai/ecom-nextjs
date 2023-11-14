@@ -59,24 +59,23 @@ export default function ResetPassword(): JSX.Element {
     // console.log(token);
   }, [token]);
 
-  const validatePassword = () => {
-    const passwordRegex = /^(?=.*[A-Za-z0-9])(?=.*[^A-Za-z0-9]).{8,}$/;
-    const isValid = passwordRegex.test(newPassword);
-
-    if (!isValid) {
-      setPasswordError(
-        "Password must contain 8 alphanumeric characters and a special character"
-      );
-      setValidPassword(false);
-    } else {
-      setPasswordError("");
-      setValidPassword(true);
-    }
-
-    setButtonDisabled(!isValid);
-  };
-
   useEffect(() => {
+    const validatePassword = () => {
+      const passwordRegex = /^(?=.*[A-Za-z0-9])(?=.*[^A-Za-z0-9]).{8,}$/;
+      const isValid = passwordRegex.test(newPassword);
+
+      if (!isValid) {
+        setPasswordError(
+          "Password must contain 8 alphanumeric characters and a special character"
+        );
+        setValidPassword(false);
+      } else {
+        setPasswordError("");
+        setValidPassword(true);
+      }
+
+      setButtonDisabled(!isValid);
+    };
     validatePassword();
   }, [newPassword]);
 
@@ -84,7 +83,7 @@ export default function ResetPassword(): JSX.Element {
     if (newPassword) setButtonDisabled(false);
 
     if (newPassword.length < 8) setButtonDisabled(true);
-  }, [newPassword, validatePassword]);
+  }, [newPassword]);
 
   useEffect(() => {
     const urlToken = window.location.search.split("=")[1];

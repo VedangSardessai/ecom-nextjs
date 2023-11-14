@@ -13,17 +13,6 @@ export default function BuyNow(): JSX.Element {
   const [productFromId, setProductFromId] = useState<any>([]);
   const [images, setImages] = useState<any>([]);
   const [desc, setDesc] = useState<any>("");
-  const getProductFromId = async () => {
-    const product = pathname.split("/buynow/")[1];
-    const apiurl = "https://dummyjson.com/products/" + product;
-
-    const response = await axios.get(apiurl);
-    // console.log(response.data);
-
-    setProductFromId(response.data);
-    setImages(response.data.images);
-    setDesc(response.data.description);
-  };
   const [selectedSize, setSelectedSize] = useState<string | null>(null);
 
   // Function to handle size button click
@@ -31,8 +20,19 @@ export default function BuyNow(): JSX.Element {
     setSelectedSize(size);
   };
   useEffect(() => {
+    const getProductFromId = async () => {
+      const product = pathname.split("/buynow/")[1];
+      const apiurl = "https://dummyjson.com/products/" + product;
+
+      const response = await axios.get(apiurl);
+      // console.log(response.data);
+
+      setProductFromId(response.data);
+      setImages(response.data.images);
+      setDesc(response.data.description);
+    };
     getProductFromId();
-  }, [getProductFromId]);
+  }, []);
 
   const dispatch = useDispatch<AppDispatch>();
 

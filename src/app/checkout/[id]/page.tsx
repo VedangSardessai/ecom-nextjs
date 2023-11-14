@@ -175,20 +175,20 @@ export default function CheckoutComponent() {
 
   const [user, setUser] = useState<string>("");
 
-  const getCurrentUserDetails = async () => {
-    try {
-      const response = await axios.get("/api/users/user");
-      // console.log(response.data.data);
-      setUser(response.data.data._id);
-      setFormData({ ...formData, user_id: response.data.data._id }); // Set user_id after data is fetched
-    } catch (error: any) {
-      console.log(error.message);
-    }
-  };
-
+  
   useEffect(() => {
+    const getCurrentUserDetails = async () => {
+      try {
+        const response = await axios.get("/api/users/user");
+        // console.log(response.data.data);
+        setUser(response.data.data._id);
+        setFormData({ ...formData, user_id: response.data.data._id }); // Set user_id after data is fetched
+      } catch (error: any) {
+        console.log(error.message);
+      }
+    };
     getCurrentUserDetails();
-  }, [getCurrentUserDetails]);
+  }, []);
 
   return (
     <>
