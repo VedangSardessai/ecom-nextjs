@@ -1,8 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import CartDisplayerComponent, {
-  CartDisplayerProps,
-} from "@/app/products/cart/[id]/page";
+import CartDisplayerComponent from "@/app/products/cart/[id]/page";
 import { toast, Toaster } from "react-hot-toast";
 import axios from "axios";
 import crypto from "crypto";
