@@ -32,10 +32,13 @@ export default function NavigationComponent() {
   };
 
   const [user, setUser] = useState(false);
+  const [userId, setUserId] = useState("");
   const getCurrentUserDetails = async () => {
     try {
       const response = await axios.get("/api/users/user");
       // console.log(response.data.data);
+      setUserId(response.data.data._id);
+
       setUser(true);
     } catch (error: any) {
       setUser(false);
@@ -717,6 +720,54 @@ export default function NavigationComponent() {
                       {itemCount}
                     </span>
                     <span className="sr-only">items in cart, view bag</span>
+                  </Link>
+                </div>
+                <div className="ml-4 flow-root lg:ml-6">
+                  <Link
+                    onClick={() => {
+                      setIsMenNavOpen(false);
+                      setIsWomenNavOpen(false);
+                      setIsNavOpen(false);
+                    }}
+                    href={`/profile/${userId}`}
+                    className="group -m-2 flex items-center p-2"
+                  >
+                    <svg
+                      className="h-6 w-6"
+                      strokeWidth="1.5"
+                      stroke="currentColor"
+                      aria-hidden="true"
+                      id="user"
+                      data-name="Line Color"
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 22 22"
+                    >
+                      <path
+                        id="secondary"
+                        d="M9,15h6a5,5,0,0,1,5,5v0a1,1,0,0,1-1,1H5a1,1,0,0,1-1-1v0a5,5,0,0,1,5-5Z"
+                        style={{
+                          fill: "none",
+                          stroke: "rgb(44, 169, 188)",
+                          strokeLinecap: "round",
+                          strokeLinejoin: "round",
+                          strokeWidth: 2,
+                        }}
+                      />
+                      <circle
+                        id="primary"
+                        cx={12}
+                        cy={7}
+                        r={4}
+                        style={{
+                          fill: "none",
+                          stroke: "rgb(0, 0, 0)",
+                          strokeLinecap: "round",
+                          strokeLinejoin: "round",
+                          strokeWidth: 2,
+                        }}
+                      />
+                    </svg>
                   </Link>
                 </div>
               </div>
