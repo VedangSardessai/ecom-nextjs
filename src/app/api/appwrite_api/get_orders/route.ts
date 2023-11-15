@@ -22,8 +22,8 @@ export async function GET(request: NextRequest) {
             response: response
         })
     } catch (error: any) {
-        
-        
-        return NextResponse.error
+
+
+        return NextResponse.error()
     }
 }
