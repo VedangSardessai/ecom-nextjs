@@ -13,10 +13,7 @@ import {
 import Link from "next/link";
 import axios from "axios";
 
-
-export default function CartDisplayerComponent({
-  summary,
-}:any) {
+export default function CartDisplayerComponent({ summary }: any) {
   const dispatch = useDispatch();
   const cartItems = useSelector((state: any) => state.cart.items); // Access the 'items' property
   const [cartItemDisplay, setCartItemDisplay] = useState([]);
@@ -101,7 +98,7 @@ export default function CartDisplayerComponent({
             !summary ? "w-screen" : "w-screen"
           }`}
         >
-          <div className="flex h-screen w-full flex-col">
+          <div className="flex h-full w-full flex-col">
             <div className="flex-1 overflow-y-auto px-4 py-6 sm:px-6">
               {!summary && (
                 <div className="flex items-start justify-between min-w-3/4">
@@ -138,15 +135,6 @@ export default function CartDisplayerComponent({
                 </div>
               )}
 
-              {total == 0 && !summary && (
-                <Link
-                  href="/"
-                  className="flex flex-col justify-center items-center h-60 font-medium text-xl text-indigo-600 hover:text-indigo-500"
-                >
-                  Your cart is empty. Check out our great variety of products!
-                  <span aria-hidden="true"> &rarr;</span>
-                </Link>
-              )}
               <div className="mt-8">
                 <div className="flow-root">
                   <ul role="list" className="-my-6 divide-y divide-gray-200">
@@ -211,43 +199,60 @@ export default function CartDisplayerComponent({
                 </div>
               </div>
             </div>
-
-            <div className="border-t border-gray-200 px-4 py-6 sm:px-6">
-              {total > 0 && (
-                <>
-                  <div className="flex justify-between text-base font-medium text-gray-900">
-                    <p>Subtotal</p>
-                    <p>₹{total}</p>
-                  </div>
-                  <p className="mt-0.5 text-sm text-gray-500">
-                    Shipping and taxes calculated at checkout.
-                  </p>
-                  {!summary && (
-                    <div className="mt-6">
-                      <button
-                        onClick={onCheckout}
-                        className="flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700"
-                      >
-                        Checkout
-                      </button>
+            {total == 0 && !summary && (
+              <Link
+                href="/"
+                className="flex justify-center items-center  font-medium text-xl text-indigo-600 hover:text-indigo-500"
+              >
+                <p className="text-center">
+                  Your cart is empty. Check out our great variety of products!
+                </p>
+                <span className="ml-4" aria-hidden="true">
+                  {" "}
+                  &rarr;
+                </span>
+              </Link>
+            )}
+            {total > 0 && (
+              <>
+                <div className="border-t border-gray-200 px-4 py-6 sm:px-6">
+                  {total > 0 && (
+                    <>
+                      <div className="flex justify-between text-base font-medium text-gray-900">
+                        <p>Subtotal</p>
+                        <p>₹{total}</p>
+                      </div>
+                      <p className="mt-0.5 text-sm text-gray-500">
+                        Shipping and taxes calculated at checkout.
+                      </p>
+                      {!summary && (
+                        <div className="mt-6">
+                          <button
+                            onClick={onCheckout}
+                            className="flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700"
+                          >
+                            Checkout
+                          </button>
+                        </div>
+                      )}
+                    </>
+                  )}
+                  {total > 0 && !summary && (
+                    <div className="mt-6 flex justify-center text-center text-sm text-gray-500">
+                      <p>
+                        <button
+                          type="button"
+                          className="font-medium text-indigo-600 hover:text-indigo-500"
+                        >
+                          Continue Shopping
+                          <span aria-hidden="true"> &rarr;</span>
+                        </button>
+                      </p>
                     </div>
                   )}
-                </>
-              )}
-              {total > 0 && !summary && (
-                <div className="mt-6 flex justify-center text-center text-sm text-gray-500">
-                  <p>
-                    <button
-                      type="button"
-                      className="font-medium text-indigo-600 hover:text-indigo-500"
-                    >
-                      Continue Shopping
-                      <span aria-hidden="true"> &rarr;</span>
-                    </button>
-                  </p>
                 </div>
-              )}
-            </div>
+              </>
+            )}
           </div>
         </div>
       </div>
