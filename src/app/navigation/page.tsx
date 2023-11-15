@@ -6,6 +6,7 @@ import { useSelector } from "react-redux";
 import { useRouter } from "next/navigation";
 import OverlayComponent from "../overlay/page";
 import axios from "axios";
+import toast from "react-hot-toast";
 
 export default function NavigationComponent() {
   const cartItems = useSelector((state: any) => state.cart);
@@ -33,6 +34,7 @@ export default function NavigationComponent() {
 
   const [user, setUser] = useState(false);
   const [userId, setUserId] = useState("");
+
   const getCurrentUserDetails = async () => {
     try {
       const response = await axios.get("/api/users/user");
@@ -45,10 +47,29 @@ export default function NavigationComponent() {
       console.log(error.message);
     }
   };
-
   useEffect(() => {
     getCurrentUserDetails();
-  }, []);
+  }, [isMenNavOpen, isWomenNavOpen, isNavOpen]);
+
+  const [success, setSuccess] = useState(true);
+
+  const successToast = () => toast("User has logged out successfully !");
+  const failureToast = () => toast("Error logging out. Please try again ");
+  const logout = async () => {
+    try {
+      const response = await axios.get("/api/users/logout");
+      // console.log("User logged out");
+
+      setSuccess(true);
+      successToast();
+
+      setTimeout(() => router.push("/login"), 4000);
+    } catch (error: any) {
+      setSuccess(false);
+      failureToast();
+      // console.log("error logging out ", error.message);
+    }
+  };
 
   return (
     <div className="bg-white">
@@ -293,6 +314,7 @@ export default function NavigationComponent() {
                       <Link
                         onClick={() => {
                           setIsNavOpen(false);
+                          getCurrentUserDetails();
                         }}
                         href="/login"
                         className="-m-2 block p-2 font-medium text-gray-900"
@@ -318,6 +340,8 @@ export default function NavigationComponent() {
                   <p
                     onClick={() => {
                       setIsNavOpen(false);
+                      getCurrentUserDetails();
+                      logout();
                     }}
                     className="cursor-pointer text-sm font-medium text-gray-700 hover:text-gray-800"
                   >
@@ -353,7 +377,7 @@ export default function NavigationComponent() {
           aria-label="Top"
           className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8"
         >
-          {/* This is the large screen menu */}
+          
           <div className="border-b border-gray-200">
             <div className="flex h-16 items-center">
               <button
@@ -614,6 +638,7 @@ export default function NavigationComponent() {
                       <Link
                         onClick={() => {
                           setIsNavOpen(false);
+                          getCurrentUserDetails();
                         }}
                         href="/login"
                         className="text-sm font-medium text-gray-700 hover:text-gray-800"
@@ -640,6 +665,7 @@ export default function NavigationComponent() {
                     <p
                       onClick={() => {
                         setIsNavOpen(false);
+                        logout();
                       }}
                       className="cursor-pointer text-sm font-medium text-gray-700 hover:text-gray-800"
                     >
@@ -722,54 +748,56 @@ export default function NavigationComponent() {
                     <span className="sr-only">items in cart, view bag</span>
                   </Link>
                 </div>
-                <div className="ml-4 flow-root lg:ml-6">
-                  <Link
-                    onClick={() => {
-                      setIsMenNavOpen(false);
-                      setIsWomenNavOpen(false);
-                      setIsNavOpen(false);
-                    }}
-                    href={`/profile/${userId}`}
-                    className="group -m-2 flex items-center p-2"
-                  >
-                    <svg
-                      className="h-6 w-6"
-                      strokeWidth="1.5"
-                      stroke="currentColor"
-                      aria-hidden="true"
-                      id="user"
-                      data-name="Line Color"
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 22 22"
+                {user && (
+                  <div className="ml-4 flow-root lg:ml-6">
+                    <Link
+                      onClick={() => {
+                        setIsMenNavOpen(false);
+                        setIsWomenNavOpen(false);
+                        setIsNavOpen(false);
+                      }}
+                      href={`/profile/${userId}`}
+                      className="group -m-2 flex items-center p-2"
                     >
-                      <path
-                        id="secondary"
-                        d="M9,15h6a5,5,0,0,1,5,5v0a1,1,0,0,1-1,1H5a1,1,0,0,1-1-1v0a5,5,0,0,1,5-5Z"
-                        style={{
-                          fill: "none",
-                          stroke: "rgb(44, 169, 188)",
-                          strokeLinecap: "round",
-                          strokeLinejoin: "round",
-                          strokeWidth: 2,
-                        }}
-                      />
-                      <circle
-                        id="primary"
-                        cx={12}
-                        cy={7}
-                        r={4}
-                        style={{
-                          fill: "none",
-                          stroke: "rgb(0, 0, 0)",
-                          strokeLinecap: "round",
-                          strokeLinejoin: "round",
-                          strokeWidth: 2,
-                        }}
-                      />
-                    </svg>
-                  </Link>
-                </div>
+                      <svg
+                        className="h-6 w-6"
+                        strokeWidth="1.5"
+                        stroke="currentColor"
+                        aria-hidden="true"
+                        id="user"
+                        data-name="Line Color"
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 22 22"
+                      >
+                        <path
+                          id="secondary"
+                          d="M9,15h6a5,5,0,0,1,5,5v0a1,1,0,0,1-1,1H5a1,1,0,0,1-1-1v0a5,5,0,0,1,5-5Z"
+                          style={{
+                            fill: "none",
+                            stroke: "rgb(44, 169, 188)",
+                            strokeLinecap: "round",
+                            strokeLinejoin: "round",
+                            strokeWidth: 2,
+                          }}
+                        />
+                        <circle
+                          id="primary"
+                          cx={12}
+                          cy={7}
+                          r={4}
+                          style={{
+                            fill: "none",
+                            stroke: "rgb(0, 0, 0)",
+                            strokeLinecap: "round",
+                            strokeLinejoin: "round",
+                            strokeWidth: 2,
+                          }}
+                        />
+                      </svg>
+                    </Link>
+                  </div>
+                )}
               </div>
             </div>
             {/* <div
