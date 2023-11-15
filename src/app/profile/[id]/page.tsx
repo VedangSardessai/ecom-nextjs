@@ -4,72 +4,138 @@ import { useRouter } from "next/navigation";
 import axios from "axios";
 import Link from "next/link";
 import toast, { Toaster } from "react-hot-toast";
+import { HashLoader } from "react-spinners";
 
 export default function UserProfile(): JSX.Element {
   const [success, setSuccess] = useState(true);
+  const [loading, setLoading] = useState(true);
   const router = useRouter();
 
   const successToast = () => toast("User has logged out successfully !");
   const failureToast = () => toast("Error logging out. Please try again ");
-  const [data, setData] = useState("nothings");
-  const logout = async () => {
+  const [data, setData] = useState("");
+
+
+  const [userId, setUserId] = useState("");
+  const [orders, setOrders] = useState([]);
+  const getOrders = async () => {
     try {
-      const response = await axios.get("/api/users/logout");
-      // console.log("User logged out");
+      const response = await axios.get("/api/appwrite_api/get_orders", {
+        params: { user_id: userId },
+      });
+      console.log(response.data.response.documents); // Log the response data
+      setOrders(response.data.response.documents);
+      if (response.data.response.documents.length > 0) {
+        console.log(response.data.response.documents.length);
 
-      setSuccess(true);
-      successToast();
-
-      setTimeout(() => router.push("/login"), 4000);
-    } catch (error: any) {
-      setSuccess(false);
-      failureToast();
-      // console.log("error logging out ", error.message);
+        setLoading(false);
+      }
+    } catch (error) {
+      console.error(error); // Log any errors
     }
   };
 
   const getCurrentUserDetails = async () => {
     const response = await axios.get("/api/users/user");
     // console.log(response.data);
-
+    setUserId(response.data.data._id);
+    console.log(response.data.data._id);
     setData(response.data.data.username);
   };
 
   useEffect(() => {
     getCurrentUserDetails();
+    if (userId) getOrders();
+
+    console.log(getOrders());
   }, []);
 
   return (
     <>
-      <Toaster
-        position="top-right"
-        reverseOrder={false}
-        toastOptions={{
-          style: {
-            background: success ? "green" : "red",
-            color: "white",
-            margin: "32px",
-            borderRadius: "8px",
-            paddingTop: "25px",
-            paddingBottom: "25px",
-            fontSize: "18px",
-          },
-        }}
-      />
-      <div className="flex flex-col items-center justify-center min-h-screen  py-2">
-        <h1> Profile</h1>
-        <hr />
-        Welcome
-        <span className="text-4xl p-2 rounded bg-orange-400 capitalize">
-          {data}
-        </span>
-        <button
-          onClick={logout}
-          className="pl-20 pr-20 p-2 bg-blue-500 text-white border  border-gray-300 rounded-lg mt-10 focus:outline-none focus:border-gray-600"
-        >
-          Logout
-        </button>
-      </div>
+      {loading ? (
+        <div className="flex items-center justify-center h-screen">
+          <HashLoader size={100} color="#3949ab" />
+        </div>
+      ) : (
+        <>
+          <Toaster
+            position="top-right"
+            reverseOrder={false}
+            toastOptions={{
+              style: {
+                background: success ? "green" : "red",
+                color: "white",
+                margin: "32px",
+                borderRadius: "8px",
+                paddingTop: "25px",
+                paddingBottom: "25px",
+                fontSize: "18px",
+              },
+            }}
+          />
+          <div className="min-h-screen  py-2">
+            <span className="flex flex-col items-center  text-4xl p-2 rounded capitalize">
+              Welcome {""}
+              {data}!
+            </span>
+
+            <div className="ml-20">
+              <h1>Your Orders</h1>
+              <ul role="list" className="divide-y divide-gray-100">
+                {orders.map((item: any) => (
+                  <li
+                    key={item.order_id}
+                    className="flex justify-between gap-x-6 py-5"
+                  >
+                    <div className="flex min-w-0 gap-x-4">
+                      {/* <img
+                    className="h-12 w-12 flex-none rounded-full bg-gray-50"
+                    src={item.imageUrl}
+                    alt=""
+                  /> */}
+                      <div className="min-w-0 flex-auto">
+                        <p className="text-xl font-semibold leading-6 text-gray-900">
+                          Order Id : {item.order_id}
+                        </p>
+
+                        <p className="mt-1 truncate text-xs leading-5 text-gray-500">
+                          <ul role="list" className="divide-y divide-gray-100">
+                            {JSON.parse(item.cart).map((orderItem: any) => (
+                              <li
+                                key={orderItem.name}
+                                className="flex justify-between gap-x-6 py-5"
+                              >
+                                <div className="flex min-w-0 gap-x-4">
+                                  <img
+                                    className="h-20 w-20 flex-none rounded-full bg-gray-50"
+                                    src={orderItem.img}
+                                    alt=""
+                                  />
+                                  <div className="min-w-0 flex-auto">
+                                    <p className="capitalize text-lg font-semibold leading-6 text-gray-900">
+                                      {orderItem.name}
+                                    </p>
+                                    <p className="mt-1 truncate text-sm leading-5 text-gray-500">
+                                      Quantity : {orderItem.quantity}
+                                    </p>
+                                    <p className="mt-1 truncate text-sm leading-5 text-gray-500">
+                                      ₹ {orderItem.price * 75}
+                                    </p>
+                                  </div>
+                                </div>
+                              </li>
+                            ))}
+                          </ul>
+                        </p>
+                      </div>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </>
+      )}
     </>
   );
 }
