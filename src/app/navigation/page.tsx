@@ -49,6 +49,7 @@ export default function NavigationComponent() {
   };
   useEffect(() => {
     getCurrentUserDetails();
+    console.log(getCurrentUserDetails(), "Get Current User in Navigation");
   }, [isMenNavOpen, isWomenNavOpen, isNavOpen]);
 
   const [success, setSuccess] = useState(true);
@@ -72,7 +73,13 @@ export default function NavigationComponent() {
   };
 
   return (
-    <div className="bg-white">
+    <div
+      onMouseEnter={getCurrentUserDetails}
+      onMouseLeave={getCurrentUserDetails}
+      onMouseMove={getCurrentUserDetails}
+      onMouseOver={getCurrentUserDetails}
+      className="bg-white"
+    >
       <div className="relative  lg:hidden" role="dialog" aria-modal="true">
         <div
           className={` bg-black bg-opacity-75 z-30 ${
@@ -326,6 +333,7 @@ export default function NavigationComponent() {
                       <Link
                         onClick={() => {
                           setIsNavOpen(false);
+                          getCurrentUserDetails();
                         }}
                         href="/signup"
                         className="-m-2 block p-2 font-medium text-gray-900"
@@ -377,7 +385,6 @@ export default function NavigationComponent() {
           aria-label="Top"
           className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8"
         >
-          
           <div className="border-b border-gray-200">
             <div className="flex h-16 items-center">
               <button
@@ -652,6 +659,7 @@ export default function NavigationComponent() {
                       <Link
                         onClick={() => {
                           setIsNavOpen(false);
+                          getCurrentUserDetails();
                         }}
                         href="/signup"
                         className="text-sm font-medium text-gray-700 hover:text-gray-800"
@@ -664,6 +672,7 @@ export default function NavigationComponent() {
                   {user && (
                     <p
                       onClick={() => {
+                        getCurrentUserDetails();
                         setIsNavOpen(false);
                         logout();
                       }}
