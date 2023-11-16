@@ -76,8 +76,6 @@ export default function NavigationComponent() {
     <div
       onMouseEnter={getCurrentUserDetails}
       onMouseLeave={getCurrentUserDetails}
-      onMouseMove={getCurrentUserDetails}
-      onMouseOver={getCurrentUserDetails}
       className="bg-white"
     >
       <div className="relative  lg:hidden" role="dialog" aria-modal="true">
@@ -321,7 +319,6 @@ export default function NavigationComponent() {
                       <Link
                         onClick={() => {
                           setIsNavOpen(false);
-                          getCurrentUserDetails();
                         }}
                         href="/login"
                         className="-m-2 block p-2 font-medium text-gray-900"
@@ -333,7 +330,6 @@ export default function NavigationComponent() {
                       <Link
                         onClick={() => {
                           setIsNavOpen(false);
-                          getCurrentUserDetails();
                         }}
                         href="/signup"
                         className="-m-2 block p-2 font-medium text-gray-900"
@@ -348,7 +344,6 @@ export default function NavigationComponent() {
                   <p
                     onClick={() => {
                       setIsNavOpen(false);
-                      getCurrentUserDetails();
                       logout();
                     }}
                     className="cursor-pointer text-sm font-medium text-gray-700 hover:text-gray-800"
@@ -645,7 +640,6 @@ export default function NavigationComponent() {
                       <Link
                         onClick={() => {
                           setIsNavOpen(false);
-                          getCurrentUserDetails();
                         }}
                         href="/login"
                         className="text-sm font-medium text-gray-700 hover:text-gray-800"
@@ -659,7 +653,6 @@ export default function NavigationComponent() {
                       <Link
                         onClick={() => {
                           setIsNavOpen(false);
-                          getCurrentUserDetails();
                         }}
                         href="/signup"
                         className="text-sm font-medium text-gray-700 hover:text-gray-800"
@@ -672,7 +665,6 @@ export default function NavigationComponent() {
                   {user && (
                     <p
                       onClick={() => {
-                        getCurrentUserDetails();
                         setIsNavOpen(false);
                         logout();
                       }}
