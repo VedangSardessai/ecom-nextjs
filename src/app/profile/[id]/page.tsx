@@ -15,7 +15,6 @@ export default function UserProfile(): JSX.Element {
   const failureToast = () => toast("Error logging out. Please try again ");
   const [data, setData] = useState("");
 
-
   const [userId, setUserId] = useState("");
   const [orders, setOrders] = useState([]);
   const getOrders = async () => {
@@ -36,18 +35,22 @@ export default function UserProfile(): JSX.Element {
   };
 
   const getCurrentUserDetails = async () => {
-    const response = await axios.get("/api/users/user");
-    // console.log(response.data);
-    setUserId(response.data.data._id);
-    console.log(response.data.data._id);
-    setData(response.data.data.username);
+    try {
+      const response = await axios.get("/api/users/user");
+      console.log(response.data);
+      setUserId(response.data.data._id);
+      console.log(response.data.data._id);
+      setData(response.data.data.username);
+      getOrders()
+    } catch (error) {
+      console.log(error);
+      
+    }
   };
 
   useEffect(() => {
     getCurrentUserDetails();
-    if (userId) getOrders();
-
-    console.log(getOrders());
+    
   }, []);
 
   return (
