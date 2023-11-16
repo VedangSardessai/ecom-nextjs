@@ -10,7 +10,7 @@ connectAppwrite()
 export async function GET(request: NextRequest) {
     try {
         const user_id = await getUserData(request)
-        const response = await databases.listDocuments(conf.db, conf.collection, [Query.equal('user_id', user_id)])
+        const response = await databases.listDocuments(conf.db, conf.collection, [Query.equal('user_id', '6547e5a7e906f6da8bca6a14')])
 
         console.log(user_id, 'user_id');
         console.log(response.documents);

@@ -55,7 +55,7 @@ export default function UserProfile(): JSX.Element {
 
   useEffect(() => {
     getCurrentUserDetails();
-  }, []);
+  }, [userId]);
 
   return (
     <>
