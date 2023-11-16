@@ -26,6 +26,8 @@ export default function UserProfile(): JSX.Element {
       });
       console.log(response);
 
+      if (response.data.response.documents.length == 0) setLoading(false);
+
       console.log(response.data.response.documents); // Log the response data
       setOrders(response.data.response.documents);
       if (response.data.response.documents.length > 0) {
@@ -34,6 +36,7 @@ export default function UserProfile(): JSX.Element {
         setLoading(false);
       }
     } catch (error) {
+      setLoading(false);
       console.error(error); // Log any errors
     }
   };
@@ -48,12 +51,13 @@ export default function UserProfile(): JSX.Element {
       getOrders(userId);
     } catch (error) {
       console.log(error);
+      setLoading(false);
     }
   };
 
   useEffect(() => {
     getCurrentUserDetails();
-  }, [userId]);
+  }, []);
 
   return (
     <>
@@ -84,60 +88,67 @@ export default function UserProfile(): JSX.Element {
               {data}!
             </span>
 
-            <div className="ml-20">
-              <h1>Your Orders</h1>
-              <ul role="list" className="divide-y divide-gray-100">
-                {orders.map((item: any) => (
-                  <li
-                    key={item.order_id}
-                    className="flex justify-between gap-x-6 py-5"
-                  >
-                    <div className="flex min-w-0 gap-x-4">
-                      {/* <img
+            {orders.length > 0 && (
+              <div className="ml-20">
+                <h1>Your Orders</h1>
+                <ul role="list" className="divide-y divide-gray-100">
+                  {orders.map((item: any) => (
+                    <li
+                      key={item.order_id}
+                      className="flex justify-between gap-x-6 py-5"
+                    >
+                      <div className="flex min-w-0 gap-x-4">
+                        {/* <img
                     className="h-12 w-12 flex-none rounded-full bg-gray-50"
                     src={item.imageUrl}
                     alt=""
                   /> */}
-                      <div className="min-w-0 flex-auto">
-                        <p className="text-xl font-semibold leading-6 text-gray-900">
-                          Order Id : {item.order_id}
-                        </p>
+                        <div className="min-w-0 flex-auto">
+                          <p className="text-xl font-semibold leading-6 text-gray-900">
+                            Order Id : {item.order_id}
+                          </p>
 
-                        <div className="mt-1 truncate text-xs leading-5 text-gray-500">
-                          <ul role="list" className="divide-y divide-gray-100">
-                            {JSON.parse(item.cart).map((orderItem: any) => (
-                              <li
-                                key={orderItem.name}
-                                className="flex justify-between gap-x-6 py-5"
-                              >
-                                <div className="flex min-w-0 gap-x-4">
-                                  <img
-                                    className="h-20 w-20 flex-none rounded-full bg-gray-50"
-                                    src={orderItem.img}
-                                    alt=""
-                                  />
-                                  <div className="min-w-0 flex-auto">
-                                    <p className="capitalize text-lg font-semibold leading-6 text-gray-900">
-                                      {orderItem.name}
-                                    </p>
-                                    <p className="mt-1 truncate text-sm leading-5 text-gray-500">
-                                      Quantity : {orderItem.quantity}
-                                    </p>
-                                    <p className="mt-1 truncate text-sm leading-5 text-gray-500">
-                                      ₹ {orderItem.price * 75}
-                                    </p>
+                          <div className="mt-1 truncate text-xs leading-5 text-gray-500">
+                            <ul
+                              role="list"
+                              className="divide-y divide-gray-100"
+                            >
+                              {JSON.parse(item.cart).map((orderItem: any) => (
+                                <li
+                                  key={orderItem.name}
+                                  className="flex justify-between gap-x-6 py-5"
+                                >
+                                  <div className="flex min-w-0 gap-x-4">
+                                    <img
+                                      className="h-20 w-20 flex-none rounded-full bg-gray-50"
+                                      src={orderItem.img}
+                                      alt=""
+                                    />
+                                    <div className="min-w-0 flex-auto">
+                                      <p className="capitalize text-lg font-semibold leading-6 text-gray-900">
+                                        {orderItem.name}
+                                      </p>
+                                      <p className="mt-1 truncate text-sm leading-5 text-gray-500">
+                                        Quantity : {orderItem.quantity}
+                                      </p>
+                                      <p className="mt-1 truncate text-sm leading-5 text-gray-500">
+                                        ₹ {orderItem.price * 75}
+                                      </p>
+                                    </div>
                                   </div>
-                                </div>
-                              </li>
-                            ))}
-                          </ul>
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
                         </div>
                       </div>
-                    </div>
-                  </li>
-                ))}
-              </ul>
-            </div>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+
+            {orders.length == 0 && <div>Oops ! No orders here</div>}
           </div>
         </>
       )}
