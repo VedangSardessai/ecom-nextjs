@@ -53,7 +53,7 @@ export default function UserProfile(): JSX.Element {
 
   useEffect(() => {
     getCurrentUserDetails();
-  }, []);
+  }, [userId]);
 
   return (
     <>
@@ -103,7 +103,7 @@ export default function UserProfile(): JSX.Element {
                           Order Id : {item.order_id}
                         </p>
 
-                        <p className="mt-1 truncate text-xs leading-5 text-gray-500">
+                        <div className="mt-1 truncate text-xs leading-5 text-gray-500">
                           <ul role="list" className="divide-y divide-gray-100">
                             {JSON.parse(item.cart).map((orderItem: any) => (
                               <li
@@ -131,7 +131,7 @@ export default function UserProfile(): JSX.Element {
                               </li>
                             ))}
                           </ul>
-                        </p>
+                        </div>
                       </div>
                     </div>
                   </li>
