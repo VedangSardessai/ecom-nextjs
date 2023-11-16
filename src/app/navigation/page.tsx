@@ -49,7 +49,6 @@ export default function NavigationComponent() {
   };
   useEffect(() => {
     getCurrentUserDetails();
-    console.log(getCurrentUserDetails(), "Get Current User in Navigation");
   }, [isMenNavOpen, isWomenNavOpen, isNavOpen]);
 
   const [success, setSuccess] = useState(true);
