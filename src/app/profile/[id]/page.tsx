@@ -22,7 +22,7 @@ export default function UserProfile(): JSX.Element {
       console.log(userId);
 
       const response = await axios.get("/api/appwrite_api/get_orders", {
-        params: { user_id: userId },
+        params: { user_id: "6547e5a7e906f6da8bca6a14" },
       });
       console.log(response);
 
