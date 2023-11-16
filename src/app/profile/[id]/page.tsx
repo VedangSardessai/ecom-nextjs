@@ -17,11 +17,15 @@ export default function UserProfile(): JSX.Element {
 
   const [userId, setUserId] = useState("");
   const [orders, setOrders] = useState([]);
-  const getOrders = async () => {
+  const getOrders = async (userId: any) => {
     try {
+      console.log(userId);
+
       const response = await axios.get("/api/appwrite_api/get_orders", {
         params: { user_id: userId },
       });
+      console.log(response);
+
       console.log(response.data.response.documents); // Log the response data
       setOrders(response.data.response.documents);
       if (response.data.response.documents.length > 0) {
@@ -41,16 +45,14 @@ export default function UserProfile(): JSX.Element {
       setUserId(response.data.data._id);
       console.log(response.data.data._id);
       setData(response.data.data.username);
-      getOrders()
+      getOrders(userId);
     } catch (error) {
       console.log(error);
-      
     }
   };
 
   useEffect(() => {
     getCurrentUserDetails();
-    
   }, []);
 
   return (
