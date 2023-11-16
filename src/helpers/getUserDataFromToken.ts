@@ -9,7 +9,7 @@ export const getUserData = (request: NextRequest) => {
         const decodedToken: any = jwt.verify(token, process.env.TOKEN_SECRET!)
 
         return decodedToken.id
-    } catch (error) {
-
+    } catch (error: any) {
+        return error.message
     }
 }
