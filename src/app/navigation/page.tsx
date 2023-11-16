@@ -47,9 +47,9 @@ export default function NavigationComponent() {
       console.log(error.message);
     }
   };
-  useEffect(() => {
-    getCurrentUserDetails();
-  }, [isMenNavOpen, isWomenNavOpen, isNavOpen]);
+  // useEffect(() => {
+  //   getCurrentUserDetails();
+  // }, [isMenNavOpen, isWomenNavOpen, isNavOpen]);
 
   const [success, setSuccess] = useState(true);
 
