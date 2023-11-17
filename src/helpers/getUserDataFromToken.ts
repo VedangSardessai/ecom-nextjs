@@ -10,6 +10,6 @@ export const getUserData = (request: NextRequest) => {
 
         return decodedToken.id
     } catch (error: any) {
-        return error.message
+        throw new Error(error.message);
     }
 }
