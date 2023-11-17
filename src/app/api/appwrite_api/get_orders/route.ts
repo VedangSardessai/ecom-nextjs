@@ -13,7 +13,7 @@ export async function GET(request: NextRequest) {
 
         do {
 
-            const response = await databases.listDocuments(conf.db, conf.collection)
+            const response = await databases.listDocuments(conf.db, conf.collection, [Query.equal('user_id', [user_id])])
 
             console.log(user_id, 'user_id');
             console.log(response.documents);
