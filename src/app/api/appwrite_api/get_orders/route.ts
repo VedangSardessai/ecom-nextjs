@@ -7,15 +7,25 @@ import { getUserData } from "@/helpers/getUserDataFromToken";
 
 connectAppwrite()
 
-export async function GET(request: NextRequest) {
+export async function POST(request: NextRequest) {
     try {
-        const user_id = await getUserData(request)
-        const response = await databases.listDocuments(conf.db, conf.collection, [Query.equal('user_id', user_id)])
+        const reqBody = await request.json()
+        console.log(reqBody, 'this is the reqBody');
+
+
+        const user_id = reqBody.userId;
+        console.log(user_id);
+
+
+        const response = await databases.
+            listDocuments(conf.db, conf.collection,
+                [Query.equal('user_id',
+                    user_id)])
 
 
         return NextResponse.json({
             response: response,
-            user_id: user_id
+            user_id: user_id,
         });
     } catch (error: any) {
         console.error(error);

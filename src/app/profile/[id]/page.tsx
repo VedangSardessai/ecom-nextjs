@@ -21,7 +21,9 @@ export default function UserProfile(): JSX.Element {
     try {
       console.log(userId);
 
-      const response = await axios.get("/api/appwrite_api/get_orders");
+      const response = await axios.post("/api/appwrite_api/get_orders", {
+        userId,
+      });
       console.log(response, "response fend");
 
       if (response.data.response.documents.length == 0) setLoading(false);
@@ -46,7 +48,7 @@ export default function UserProfile(): JSX.Element {
       setUserId(response.data.data._id);
       console.log(response.data.data._id);
       setData(response.data.data.username);
-      getOrders(userId);
+      getOrders(response.data.data._id);
     } catch (error) {
       console.log(error);
       setLoading(false);
