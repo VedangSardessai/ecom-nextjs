@@ -10,11 +10,11 @@ connectAppwrite()
 export async function POST(request: NextRequest) {
     try {
         const reqBody = await request.json()
-        console.log(reqBody, 'this is the reqBody');
+        // console.log(reqBody, 'this is the reqBody');
 
 
         const user_id = reqBody.userId;
-        console.log(user_id);
+        // console.log(user_id);
 
 
         const response = await databases.
@@ -28,7 +28,7 @@ export async function POST(request: NextRequest) {
             user_id: user_id,
         });
     } catch (error: any) {
-        console.error(error);
+        // console.error(error);
 
         return NextResponse.error();
     }

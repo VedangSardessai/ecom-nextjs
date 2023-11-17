@@ -19,38 +19,38 @@ export default function UserProfile(): JSX.Element {
   const [orders, setOrders] = useState([]);
   const getOrders = async (userId: any) => {
     try {
-      console.log(userId);
+      // console.log(userId);
 
       const response = await axios.post("/api/appwrite_api/get_orders", {
         userId,
       });
-      console.log(response, "response fend");
+      // console.log(response, "response fend");
 
       if (response.data.response.documents.length == 0) setLoading(false);
 
-      console.log(response.data.response.documents); // Log the response data
+      // console.log(response.data.response.documents); // Log the response data
       setOrders(response.data.response.documents);
       if (response.data.response.documents.length > 0) {
-        console.log(response.data.response.documents.length);
+        // console.log(response.data.response.documents.length);
 
         setLoading(false);
       }
     } catch (error) {
       setLoading(false);
-      console.error(error); // Log any errors
+      // console.error(error); // Log any errors
     }
   };
 
   const getCurrentUserDetails = async () => {
     try {
       const response = await axios.get("/api/users/user");
-      console.log(response.data);
+      // console.log(response.data);
       setUserId(response.data.data._id);
-      console.log(response.data.data._id);
+      // console.log(response.data.data._id);
       setData(response.data.data.username);
       getOrders(response.data.data._id);
     } catch (error) {
-      console.log(error);
+      // console.log(error);
       setLoading(false);
     }
   };

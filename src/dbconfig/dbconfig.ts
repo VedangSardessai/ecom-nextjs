@@ -17,8 +17,9 @@ export async function connect() {
         )
     }
 
-    catch (error) {
+    catch (error: any) {
         console.log('error connecting', error);
+        return error.message
 
     }
 }

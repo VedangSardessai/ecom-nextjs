@@ -14,7 +14,7 @@ export async function POST() {
         response.cookies.delete('token')
         return response
     } catch (error: any) {
-        console.log('error logging out', error.message);
+        // console.log('error logging out', error.message);
 
         return NextResponse.json({ error: error }, { status: 500 })
     }

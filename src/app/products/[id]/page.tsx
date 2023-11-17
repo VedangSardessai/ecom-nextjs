@@ -46,7 +46,8 @@ export default function ProductCategory(): JSX.Element {
           router.push("/products/categorynotfound");
         }
       } catch (error) {
-        console.error(error);
+        router.push("/products/categorynotfound");
+
       }
     };
     fetchProducts();

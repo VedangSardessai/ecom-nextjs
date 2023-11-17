@@ -45,7 +45,7 @@ export default function NavigationComponent() {
       return response.data.data;
     } catch (error: any) {
       setUser(false);
-      console.log(error.message);
+      // console.log(error.message);
       return error.message;
     }
   };
@@ -58,7 +58,7 @@ export default function NavigationComponent() {
   const logout = async () => {
     try {
       const response = await axios.post("/api/users/logout");
-      console.log(response);
+      // console.log(response);
 
       setSuccess(true);
       successToast();
@@ -75,7 +75,7 @@ export default function NavigationComponent() {
 
   useEffect(() => {
     getCurrentUserDetails();
-    console.log(pathName);
+    // console.log(pathName);
   }, [pathName]);
 
   return (

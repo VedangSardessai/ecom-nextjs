@@ -16,10 +16,10 @@ export default function SearchResultsComponent() {
         "https://dummyjson.com/products/search?q=" + product
       );
 
-      console.log(response.data.products);
+    //   console.log(response.data.products);
       setProducts(response.data.products);
       //   setProducts(JSON.parse(response.data));
-      console.log(Array.isArray(response.data.products));
+    //   console.log(Array.isArray(response.data.products));
     } catch (error) {
       router.push("/products/categorynotfound");
     }
