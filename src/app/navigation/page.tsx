@@ -58,7 +58,7 @@ export default function NavigationComponent() {
   const logout = async () => {
     try {
       const response = await axios.get("/api/users/logout");
-      // console.log("User logged out");
+      console.log(response);
 
       setSuccess(true);
       successToast();
