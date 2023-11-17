@@ -57,7 +57,7 @@ export default function NavigationComponent() {
   const failureToast = () => toast("Error logging out. Please try again ");
   const logout = async () => {
     try {
-      const response = await axios.get("/api/users/logout");
+      const response = await axios.post("/api/users/logout");
       console.log(response);
 
       setSuccess(true);
