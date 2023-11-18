@@ -22,7 +22,13 @@ export async function POST(request: NextRequest) {
 
         });
 
-        const changePassword = await User.findOneAndUpdate(user._id, { password: newPassword })
+        const changePassword = await
+            User.findOneAndUpdate(user._id,
+                {
+                    password: newPassword,
+                    forgotPasswordTokn: "",
+                    forgotPasswordTokenExpiry: null
+                })
 
         if (!user) {
             // console.log('User not found');
