@@ -27,7 +27,8 @@ export default function ResetEmail() {
         setIsLoading(true);
         setSuccess(true);
 
-        axios.post("/api/users/resetemail", { email });
+        const response = await axios.post("/api/users/resetemail", { email });
+        console.log(response);
 
         successToast();
         setTimeout(() => router.push("/login"), 1000);
