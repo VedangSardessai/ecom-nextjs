@@ -24,7 +24,7 @@ export async function POST(request: NextRequest) {
         });
 
         // console.log(user.email);
-        
+
 
         if (!user) {
             // console.log('User not found');
@@ -34,12 +34,9 @@ export async function POST(request: NextRequest) {
         }
 
         // console.log(user.forgotPasswordToken,'forgot password token');
-        
+        const emailSent = sendEmail({ email: email, emailType: "RESET", userId: user._id })
 
-        sendEmail({ email: email, emailType: "RESET", userId: user._id })
-        
-
-        return NextResponse.json({ message: "Reset Email Sent", success: true })
+        return NextResponse.json({ message: "Reset Email Sent", success: true, emailSent: (await emailSent).response })
 
     } catch (error: any) {
         // console.log(error.message, 'on line 38');
